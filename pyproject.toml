@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-auditor"
+version = "0.1.0"
+description = "Research reproducibility auditor"
+requires-python = ">=3.10"
+dependencies = [
+    "datasets",
+    "pandas",
+    "pyarrow",
+    "PyMuPDF>=1.24.11,<2",
+]
+
+[project.scripts]
+ai-auditor = "ai_auditor.__main__:main"
+
+[tool.setuptools]
+packages = ["ai_auditor"]
+

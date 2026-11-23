@@ -1,0 +1,147 @@
+﻿discrepancy_id	paper_url	paper_url_versioned	code_url	code_url_versioned	origin_url	discrepancy_category	discrepancy_type	validator_disagreement	origin_discrepancy_text	study_id	review_category	review_status	field	paper_value	code_value	paper_location	paper_excerpt	code_location	code_excerpt	review_notes
+03255952	https://proceedings.mlr.press/v139/mahajan21b/mahajan21b.pdf	https://proceedings.mlr.press/v139/mahajan21b/mahajan21b.pdf	https://github.com/microsoft/robustdg	https://github.com/microsoft/robustdg/tree/3eee1730ae9efaae2bd763f9835ac540b9bde02a	https://zenodo.org/record/6574661/files/article.pdf	Data	Code Omission	False	The slab dataset generation script did not create datasets with a spurious correlation level of 1.0, which are needed for reproducing the paper’s reported experiments (e.g., Table 1). The reproducing authors had to modify the code to append 1.0 to the spurious correlation list to generate the required data. This indicates a mismatch between the experimental settings used in the paper and the defaults/behavior of the provided code.											
+03a374de	https://dl.acm.org/doi/pdf/10.1145/3539618.3591626	https://dl.acm.org/doi/pdf/10.1145/3539618.3591626	https://github.com/HansiZeng/UIA	https://github.com/HansiZeng/UIA/tree/c939bb8bfcc1674f6de1ddeece0fd94b40031081	https://link.springer.com/content/pdf/10.1007/978-3-031-88717-8_10.pdf	Data	Paper Omission	False	The code performs an additional downsampling of positive/relevant items after the dataset split that is not described in the paper. Specifically, for QBE and CIR, the code samples 5 random relevant items per anchor item, and for KS it limits to 10 relevant items per query when constructing instances. This second sampling reduces dataset size and limits the influence of very popular queries/items, but it diverges from the paper’s data construction procedure. The reproducibility report attributes this difference to efficiency reasons and retains it for their runs.											
+09062f79	https://openreview.net/pdf?id=r1xMH1BtvB	https://openreview.net/pdf?id=r1xMH1BtvB	https://github.com/google-research/electra	https://github.com/google-research/electra/tree/8a46635f32083ada044d7e9ad09604742600ee7b	https://arxiv.org/pdf/2104.02756	Training	Difference	False	The official ELECTRA code applies a different layer-wise learning rate decay than what is specified in the paper due to a bug. While the paper describes a particular layer-wise LR decay schedule (e.g., 0.8), the implementation inadvertently uses a lower effective decay, leading to smaller learning rates for lower layers than intended. This constitutes a mismatch between the optimization procedure described in the paper and what is implemented in the original repository.											
+106ad0b9	https://proceedings.neurips.cc/paper_files/paper/2022/file/b1e7f61f40d68b2177857bfcb195a507-Paper-Conference.pdf	https://proceedings.neurips.cc/paper_files/paper/2022/file/b1e7f61f40d68b2177857bfcb195a507-Paper-Conference.pdf	https://github.com/hsouri/BayesianTransferLearning	https://github.com/hsouri/BayesianTransferLearning/tree/2bb409a25ab5154ed1fa958752c54842e34e9087	https://openreview.net/pdf?id=BbvSU02jLg	Training	Difference	False	The original code scales the low-rank component of the prior covariance incorrectly relative to what the paper specifies. The paper describes scaling the covariance uniformly by λ (i.e., using N(w | μ, λΣ)), but the code multiplies the low-rank factor Q by λ before forming QQᵀ. This yields a covariance with the diagonal scaled by λ and the low-rank part effectively scaled by λ², creating inconsistent influence between components. The repro authors corrected this by scaling Q by sqrt(λ) to achieve consistent λ scaling across both diagonal and low-rank parts.											
+120335b4	https://proceedings.neurips.cc/paper_files/paper/2019/file/5faf461eff3099671ad63c6f3f094f7f-Paper.pdf	https://proceedings.neurips.cc/paper_files/paper/2019/file/5faf461eff3099671ad63c6f3f094f7f-Paper.pdf	https://github.com/JannerM/mbpo	https://github.com/JannerM/mbpo/tree/28b1e3b1382dcda34b421961286b59f77770d48c	https://zenodo.org/record/3818611/files/article.pdf	Training	Difference	False	The paper's pseudocode specifies that policy updates are conducted solely on model-generated data (D_model), whereas the authors' released implementation mixes model rollouts with a portion of real-environment data during policy optimization. The reproducibility report notes that the code uses a ratio of model to real data when updating the policy, a substantive algorithmic difference not indicated in the paper's Algorithm 1. The authors also empirically verified that following the paper's pseudocode (no real data in policy updates) fails to reproduce the reported performance, while incorporating real data as in the code yields the expected results. This indicates a concrete mismatch between the algorithmic description in the paper and the behavior of the official code.											
+183bd763	https://doi.org/10.1038/s41597-023-02020-6	https://www.nature.com/articles/s41597-023-02020-6.pdf	https://github.com/inventec-ai-center/bp-benchmark	https://github.com/inventec-ai-center/bp-benchmark/tree/813e1a6a938e2698d348129f2bcc01de44450df9	https://github.com/inventec-ai-center/bp-benchmark/issues/11	Training	Difference	False	"Nested cross validation for hyperparameter tuning
+Good afternoon,
+The related paper states in the hyperparameter tuning section that nested cross validation is used:
+
+Hyperparameter tuning. Training and hyperparameter tuning were done using nested 5 -fold CV, stratified by subject SBP and DBP, except for the UCI dataset with HOO. We tuned ML models by grid searching the parameter-search-space shown in Table 4 and monitoring the MAE performance of validation sets. For the DL models, we used the Mean Squared Error (MSE) as the loss function, the Adam optimizer, and early stopping with the patience of 15 epochs in the validation loss. Their hyperparameters were greedily searched using the Optuna Toolkit ${ }^{62}$ to monitor the MAE performance. Table 4 lists the tuned hyperparameters.
+
+but running the code it seems to me that tune.py script calls solver.evaluate() that uses a single cross validation loop, as generated by get_nested_fold_idx function, here's the output of generator returned by the function:
+
+Fold 0:
+Train folds: [2, 3, 4]
+Validation fold: [1]
+Test fold: [0]
+Fold 1:
+Train folds: [0, 3, 4]
+Validation fold: [2]
+Test fold: [1]
+Fold 2:
+Train folds: [0, 1, 4]
+Validation fold: [3]
+Test fold: [2]
+Fold 3:
+Train folds: [0, 1, 2]
+Validation fold: [4]
+Test fold: [3]
+Fold 4:
+Train folds: [1, 2, 3]
+Validation fold: [0]
+Test fold: [4]
+
+So, I'd like to ask you if every Optuna trial use a single (train, validation, test) cross validation split and if the optimized metric is the one relative to the validation set or the test set (paper says validation, but tune.py script returns metrics['test/sbp_mae']).  Is that code not updated?
+Wouldn't we have a data leakage if we use test metrics, as Optuna would use the test set to set model's hyperparameters and DL architectures?
+
+Thanks for your consideration and congratulations for the great work you've done, it has made model comparison a lot easier!
+
+
+
+"											
+1dd22bb4	https://arxiv.org/abs/2403.07332	https://arxiv.org/pdf/2403.07332v2.pdf	https://github.com/wjh892521292/LKM-UNet	https://github.com/wjh892521292/LKM-UNet/tree/66157750a2ad9e1cd7de5b48d8f69bb0262244ce	https://github.com/wjh892521292/LKM-UNet/issues/5	Data	Difference	False	"Inconsistency Between Paper Description (Pixel-level SSM) and Code Implementation (BiPixelMambaLayer)
+Hello, thank you for your inspiring work! However, I have a little confusion.
+
+In the paper's description of Pixel-level SSM, it states, ""when these sub-kernels are sent into a Mamba layer, the local adjacent pixels will be input continuously into SSM."" However, from [LKMUNet.py#L123](https://github.com/wjh892521292/LKM-UNet/blob/main/lkmunet/nnunetv2/nets/LKMUNet.py#L123), it appears that the BiPixelMambaLayer actually forms a token sequence with pixels of stride self.p.
+
+Could you please explain this discrepancy?"											
+1ffbe3cb	https://arxiv.org/abs/2104.07359	https://arxiv.org/pdf/2104.07359v3.pdf	https://github.com/takuomatsubara/KSD-Bayes	https://github.com/takuomatsubara/KSD-Bayes/tree/da22c1206edf37f71e4427159ba15a4daf39ad10	https://github.com/takuomatsubara/KSD-Bayes/issues/1	Training	Difference	False	"Inconsistency in the Computation of out.mx in the M_Liu Function
+I was reviewing the MATLAB implementation of the [M_Liu](https://github.com/takuomatsubara/KSD-Bayes/blob/main/applications/Liu/M_Liu.m) function and noticed something that seems inconsistent in the computation of out.mx (the derivative matrix).
+
+```matlab
+out.mx = [- x' * (1 + x(1)^2 + x(2)^2 + x(3)^2 + x(4)^2 + x(5)^2)^(-3/2); ...
+          - [x(1), x(2), 0, 0, 0] * (1 + x(1)^2 + x(2)^2)^(-3/2); ...
+          - [x(1), 0, x(3), 0, 0] * (1 + x(1)^2 + x(2)^2)^(-3/2); ...
+          - [x(1), 0, 0, x(4), 0] * (1 + x(1)^2 + x(2)^2)^(-3/2); ...
+          - [x(1), 0, 0, 0, x(5)] * (1 + x(1)^2 + x(2)^2)^(-3/2)];
+ ```
+
+
+I noticed that rows 3–5 reuse the denominator `(1 + x(1)^2 + x(2)^2)`, which seems inconsistent with the corresponding preconditioner formulas. Shouldn't these rows use their respective pairwise norms? For example:
+
+- **Row 3**: `(1 + x(1)^2 + x(3)^2)`
+- **Row 4**: `(1 + x(1)^2 + x(4)^2)`
+- **Row 5**: `(1 + x(1)^2 + x(5)^2)`
+
+Is this reuse of `(1 + x(1)^2 + x(2)^2)` intentional, or could it be an oversight? If intentional, could you clarify the reasoning behind using this shared denominator for rows 3–5?
+
+
+
+"											
+22fbb9d2	https://openreview.net/pdf?id=rqq6Dh8t4d	https://openreview.net/pdf?id=rqq6Dh8t4d	https://github.com/yolandalalala/GNNInterpreter	https://github.com/yolandalalala/GNNInterpreter/tree/4afe38cf1b4f6cb808d30ff39a133255f88cf37d	https://openreview.net/pdf?id=8cYcR23WUo	Training	Paper Omission	True	The repository introduces additional, undocumented size-related parameters that influence training and exploration, notably the size of the sampled explanation graph. This parameter must be tuned to allow sufficient exploration (e.g., for motifs requiring many fully connected nodes), but the original paper does not mention such a sampling-size parameter.											
+2c296ba3	https://aclanthology.org/D18-1032.pdf	https://aclanthology.org/D18-1032.pdf	https://github.com/1049451037/GCN-Align	https://github.com/1049451037/GCN-Align/tree/4fc90c438e5a609b96df03daff170fbcf03fde94	https://link.springer.com/content/pdf/10.1007/978-3-030-45442-5_1.pdf	Training	Paper Omission	True	The code normalizes node features to unit Euclidean length before input to the network, a preprocessing step not described in the paper’s method. This additional normalization alters the input scaling and is a procedural deviation from the algorithm as written.											
+34ddeb91	https://proceedings.neurips.cc/paper_files/paper/2022/file/b1e7f61f40d68b2177857bfcb195a507-Paper-Conference.pdf	https://proceedings.neurips.cc/paper_files/paper/2022/file/b1e7f61f40d68b2177857bfcb195a507-Paper-Conference.pdf	https://github.com/hsouri/BayesianTransferLearning	https://github.com/hsouri/BayesianTransferLearning/tree/2bb409a25ab5154ed1fa958752c54842e34e9087	https://openreview.net/pdf?id=BbvSU02jLg	Data	Paper Omission	False	Data augmentation procedures differ between the paper and the released code. While the paper states using random cropping and random horizontal flips, the code also employs random vertical flips for some datasets. This adds an augmentation not described in the paper’s methodology.											
+3bdc7c6f	https://proceedings.mlr.press/v162/crabbe22a/crabbe22a.pdf	https://proceedings.mlr.press/v162/crabbe22a/crabbe22a.pdf	https://github.com/JonathanCrabbe/Label-Free-XAI	https://github.com/JonathanCrabbe/Label-Free-XAI/tree/3f6fd5e98ab2fe431d6c15abeb5896c3c7747c2b	https://zenodo.org/record/8173656/files/article.pdf	Training	Difference	False	The paper states that each VAE configuration was run 20 times, but the released codebase only implements (and is set up for) 5 runs. This reflects a mismatch between the experimental protocol reported in the paper and what the public repository enables by default. Such a difference could impact aggregated statistics and stability analyses (e.g., Pearson correlations and boxplots) that depend on the number of runs.											
+47339aed	https://arxiv.org/abs/2105.00634	https://arxiv.org/pdf/2105.00634v1.pdf	https://github.com/deepcam-cn/FaceQuality	https://github.com/deepcam-cn/FaceQuality/tree/dfbf66d41707add18613247e5c43fd5d9564956c	https://github.com/deepcam-cn/FaceQuality/issues/10	Training	Difference	False	"Learning rate scheduler doesn't match as stated in the paper.
+In the paper, you said that it would be decayed by 10 after 30, 60, 90 epoch for total of 100 epochs. But in the code, I saw that you were using CosineAnnealingRate, which doesn't have the effect as the above.
+And also, I saw that u pass T_max hard-code 10 epochs (10 * len(train_loader)) -> is this intentional? Cause this would make the LR varies in a cyclical way.
+Thank you for reading and answering."											
+5a92be86	https://proceedings.neurips.cc/paper_files/paper/2022/file/90d17e882adbdda42349db6f50123817-Paper-Conference.pdf	https://proceedings.neurips.cc/paper_files/paper/2022/file/90d17e882adbdda42349db6f50123817-Paper-Conference.pdf	https://github.com/notmahi/bet	https://github.com/notmahi/bet/tree/3d9d42352c0a0a6fb170369e95dde4ec3cfea951	https://zenodo.org/record/8173757/files/article.pdf	Training	Paper Omission	True	For Kitchen demonstration metrics, the authors’ code derives task sequences from a separate ‘ground truth’ dataset (Relay Policy Learning repository), while rollout metrics are computed from the training observations—creating an inconsistency in how demonstrations vs. rollouts are processed. The paper does not document this difference, and the two sources produce measurably different sequence sets (e.g., some demos appear with three completed tasks from observations vs. four in the ground-truth file). This inconsistent sourcing introduces a paper–code mismatch in how the demonstration metrics were computed relative to what a reader would infer from the paper.											
+644c25cf	https://arxiv.org/abs/2211.07609	https://arxiv.org/pdf/2211.07609v1.pdf	https://github.com/chen742/PiPa	https://github.com/chen742/PiPa/tree/e9621b8a2626bb12cfd2547478eb3159c5e24082	https://github.com/chen742/PiPa/issues/19	Data	Difference	True	"Loss problem
+I only found PixelContrastLoss but did not find regional loss. The code of the article here is the same as that of Exploring Cross-Image PixelContrast for Semantic Segmentation. What the article describes conflicts with the code implementation.There is also no bank that stores positive and negative pixel comparisons"											
+6b3125af	https://dl.acm.org/doi/pdf/10.1145/3404835.3462891	https://dl.acm.org/doi/pdf/10.1145/3404835.3462891	https://github.com/sebastian-hofstaetter/matchmaker	https://github.com/sebastian-hofstaetter/matchmaker/tree/210b9da0c46ee6b672f59ffbf8603e0f75edb2b6	https://dl.acm.org/doi/pdf/10.1145/3539618.3591915	Training	Difference	False	Validation set sampling for early stopping differs between the paper and the released code. The paper describes uniformly sampling a small subset of queries for validation, whereas the code stratifies the validation set by per-query effectiveness using a baseline model (binning by score and sampling uniformly across bins). This mismatch could affect early-stopping behavior and reported validation metrics.											
+84acd23b	https://arxiv.org/pdf/2012.08723	https://arxiv.org/pdf/2012.08723v1.pdf	https://github.com/Ninarehm/attack	https://github.com/Ninarehm/attack/tree/0d5a6b842d4e81484540151d879036e9fe2184f1	https://zenodo.org/record/6574669/files/article.pdf	Training	Difference	False	The anchoring attacks labeled as 'random' in the paper are effectively deterministic in the original code due to the random seed being reset every attack iteration. This causes the same point to be sampled each iteration, violating the intended randomness of the Random Anchoring Attack (RAA) and altering its behavior relative to the paper’s description.											
+90c14330	https://proceedings.mlr.press/v139/mahajan21b/mahajan21b.pdf	https://proceedings.mlr.press/v139/mahajan21b/mahajan21b.pdf	https://github.com/microsoft/robustdg	https://github.com/microsoft/robustdg/tree/3eee1730ae9efaae2bd763f9835ac540b9bde02a	https://zenodo.org/record/6574661/files/article.pdf	Data	Difference	True	The code for generating Rotated-MNIST/Fashion-MNIST domains applies rotations with inconsistent directionality (clockwise vs. counterclockwise) for a given angle, whereas the paper’s experimental setup defines domains by fixed rotation angles. This effectively mixes different domains (e.g., +45° and −45°) under the same nominal angle and diverges from the dataset protocol implied by the paper. The authors of the reproducibility report fixed the rotation to be consistent and observed improved results, indicating that the original code’s behavior was not aligned with the paper’s described setup.											
+96d7973b	https://arxiv.org/abs/2006.12834	https://arxiv.org/pdf/2006.12834v2.pdf	https://github.com/fra31/sparse-rs	https://github.com/fra31/sparse-rs/tree/5cd68858b39088d3ae2cf7285b441de83f88b9b2	https://github.com/fra31/sparse-rs/issues/5	Training	Difference	False	"Paper's schedules are inconsistent with code
+Hi, I am still having issues replicating your results by following the instructions and algorithms in the paper.
+
+I have found that the schedules described in the paper are not consistent with what is present in the code, and I think that schedule optimization is a very relevant issue for performance. Indeed, there is high variability of fooling rates between schedules.
+
+As an example, this is the schedule for Patch-RS as described in the paper (page 15):
+iteration $j \in\{10,50,200,500,1000,2000,4000,6000,8000\}$
+
+And this is what I have found in the code (rs_attack.py 200):
+if 'patches' in self.norm:
+    if 10 < it <= 50:
+        p = self.p_init / 2
+    elif 50 < it <= 200:
+        p = self.p_init / 4
+    elif 200 < it <= 500:
+        p = self.p_init / 8
+    elif 500 < it <= 1000:
+        p = self.p_init / 16
+    elif 1000 < it <= 2000:
+        p = self.p_init / 32
+    elif 2000 < it <= 4000:
+        p = self.p_init / 64
+    elif 4000 < it <= 6000:
+        p = self.p_init / 128
+    elif 6000 < it <= 8000:
+        p = self.p_init / 256
+    elif 8000 < it:
+        p = self.p_init / 512
+    else:
+        p = self.p_init
+"											
+aa357802	https://openreview.net/pdf?id=BXewfAYMmJw	https://openreview.net/pdf?id=BXewfAYMmJw	https://github.com/autonomousvision/counterfactual_generative_networks	https://github.com/autonomousvision/counterfactual_generative_networks/tree/335bebdb47e21a617db9c8ebddce07b670330e7c	https://zenodo.org/record/6574635/files/article.pdf	Data	Code Omission	False	MNIST training protocol mismatch: the paper suggests training classifiers on a combination of original and CGN-generated counterfactual (CF) data, whereas the released code trains using only CF data. This alters the experimental setup and can affect reported performance. The authors of the reproducibility study explicitly note this inconsistency and evaluate both setups, observing that the choice influences results (notably on W-MNIST).											
+b019c5d8	https://openaccess.thecvf.com/content/CVPR2021/papers/Oh_Background-Aware_Pooling_and_Noise-Aware_Loss_for_Weakly-Supervised_Semantic_Segmentation_CVPR_2021_paper.pdf	https://openaccess.thecvf.com/content/CVPR2021/papers/Oh_Background-Aware_Pooling_and_Noise-Aware_Loss_for_Weakly-Supervised_Semantic_Segmentation_CVPR_2021_paper.pdf	https://github.com/cvlab-yonsei/BANA	https://github.com/cvlab-yonsei/BANA/tree/407e92e521dc2db90055470f7ff2ccb5aa474093	https://zenodo.org/record/6574677/files/article.pdf	Training	Paper Omission	False	The paper defines the retrieval-based correlation map for Y_ret as the cosine similarity between normalized feature vectors and class prototypes, without any nonlinearity. However, in the authors' official code, this cosine similarity is passed through a ReLU before label assignment. This clamps negative similarities to zero, altering the intended behavior and potentially changing which pixels are assigned to classes during pseudo-label generation. This is a methodological mismatch between the paper's equations and the released implementation.											
+b55880a0	https://openreview.net/forum?id=B7ZbqNLDn-_	https://openreview.net/forum?id=B7ZbqNLDn-_	https://github.com/shams-sam/FedOptim	https://github.com/shams-sam/FedOptim/tree/381a63ea4317f5aeacb5f1d7e36a7377450e9eae	https://github.com/shams-sam/FedOptim/issues/1	Training	Code Omission	False	"τ local updates 
+The paper states that workers can perform τ local updates, accumulate the gradients before using the LBGM algorithm for calculation. But in the code, it seems that workers update without the process of accumulating gradients  every batch, which is inconsistent with the paper. May I ask if the existing code just considers τ= 1? If there is the latest code, please could you upload it? Thanks!"											
+e85ad122	https://dl.acm.org/doi/pdf/10.1145/3539618.3591626	https://dl.acm.org/doi/pdf/10.1145/3539618.3591626	https://github.com/HansiZeng/UIA	https://github.com/HansiZeng/UIA/tree/c939bb8bfcc1674f6de1ddeece0fd94b40031081	https://link.springer.com/content/pdf/10.1007/978-3-031-88717-8_10.pdf	Data	Code Omission	False	For QBE, the Phase 1 negative sampling implemented in the code does not match the paper’s description. The paper states Phase 1 negatives should be sampled from BM25 retrievals for each request, but the code randomly samples negatives from all items during Phase 1 for QBE. The authors modified the code to align it with the paper by using BM25-based negatives for QBE.											
+f9a805be	https://openreview.net/pdf?id=wbPObLm6ueA	https://openreview.net/pdf?id=wbPObLm6ueA	https://github.com/sgiguere/Fairness-Guarantees-under-Demographic-Shift	https://github.com/sgiguere/Fairness-Guarantees-under-Demographic-Shift/tree/d081307d34cde75ca74e07ddbe059e8273095aee	https://zenodo.org/record/8173680/files/article.pdf	Training	Difference	False	The paper states that the dataset should be split evenly between the candidate selection set (Dc) and the fairness test set (Df), but the released code uses a 60%–40% split. This is a methodological inconsistency between the paper and implementation that can affect the number of samples available for model selection versus fairness testing. The reproducing authors adhered to the code’s 60–40 split when running experiments, acknowledging the deviation from the paper.											
+fbdbe39a	https://openreview.net/pdf?id=RgUPdudkWlN	https://openreview.net/pdf?id=RgUPdudkWlN	https://github.com/sumyeongahn/CUDA_LTR	https://github.com/sumyeongahn/CUDA_LTR/tree/f4c8d35ffff7242e97eadb71c6880f1cb5cee01a	https://openreview.net/pdf?id=Wm6d44I8St	Data	Paper Omission	False	The original paper does not explicitly mention using the Cutout augmentation, yet the official codebase includes a flag to enable/disable Cutout, and the reproducers found that enabling Cutout is necessary to match the reported accuracies. This suggests the original experiments likely used Cutout, creating a mismatch between the paper’s stated methodology and the implementation. The omission in the paper could mislead readers about the exact training recipe needed to achieve the reported results. The reproducers’ analysis shows that CUDA’s reported gains depend on Cutout, implying an unreported dependency in the paper. Thus, there is a paper–code discrepancy regarding the use of Cutout augmentation.											
+fec5862c	https://arxiv.org/abs/2304.01933	https://arxiv.org/pdf/2304.01933v3.pdf	https://github.com/AGI-Edgerunners/LLM-Adapters	https://github.com/AGI-Edgerunners/LLM-Adapters/tree/816657208af4db747803f87ba40a4c71383fed7a	https://github.com/AGI-Edgerunners/LLM-Adapters/issues/76	Data	Paper Omission	False	"Prompt templates in your paper did not align with your code.
+Take PIQA for example, in your paper:
+
+> Please choose the correct solution to the question: [QUESTION]
+> Solution1: [SOLUTION_1]
+> Solution2: [SOLUTION_2]
+> Answer format: solution1/solution2
+> the correct answer is [ANSWER]
+
+
+but in your code:
+
+> Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+> 
+> ### Instruction:
+> Please choose the correct solution to the question: [QUESTION]
+> Solution1: [SOLUTION_1]
+> Solution2: [SOLUTION_2]
+> ### Response:
+> the correct answer is [ANSWER]
+
+
+Since you are fine-tuning base model (not instruction-tuned), It makes quite a huge difference, please help me clarify this, thanks!"											

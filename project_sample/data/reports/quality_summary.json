@@ -1,0 +1,27 @@
+{
+  "source": "UKPLab/scicoqa",
+  "split": "real",
+  "rows_raw": 92,
+  "duplicate_discrepancy_id": 0,
+  "rows_missing_required_fields": 0,
+  "rows_missing_scope_labels": 3,
+  "rows_with_gpt_gemini_disagreement": 12,
+  "rows_quarantined": 3,
+  "rows_screened": 89,
+  "category_counts": {
+    "Algorithm": 22,
+    "Loss": 22,
+    "Training": 16,
+    "Model": 10,
+    "Data": 10,
+    "Evaluation": 9,
+    "nan": 3
+  },
+  "type_counts": {
+    "Difference": 48,
+    "Paper Omission": 29,
+    "Code Omission": 12,
+    "nan": 3
+  },
+  "note": "No imputation is performed. Missing labels and source fields are not guessed."
+}
