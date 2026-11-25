@@ -1,0 +1,12 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check initial-lr --pdf /tmp/ai-auditor-heldout.2dqTHd/b55880a0/paper.pdf --repo /tmp/ai-auditor-heldout.2dqTHd/b55880a0/repo --commit 381a63ea4317f5aeacb5f1d7e36a7377450e9eae --stage 'Standalone LBGM'",
+  "cwd": "/tmp/ai-auditor-heldout.2dqTHd/snapshot",
+  "pdf_sha256": "24c25eeebc9b2ef49f8c35d325e42bb5d15569988a2dbc2d7ad1b724e75ec71c",
+  "commit": "381a63ea4317f5aeacb5f1d7e36a7377450e9eae",
+  "exit_code": 0,
+  "elapsed_seconds": 0.3453629710002133,
+  "stderr": "",
+  "python": "3.12.3",
+  "pymupdf": "1.28.2",
+  "pyyaml": "6.0.4"
+}

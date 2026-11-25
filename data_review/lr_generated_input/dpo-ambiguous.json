@@ -1,0 +1,80 @@
+{
+  "status": "insufficient_materials",
+  "stage": "dialogue",
+  "commit": "f8b8c0f49dc92a430bae41585f9d467d3618fe2f",
+  "paper_value": "0.000001",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 20,
+        "excerpt": "Unless noted otherwise, we use a β = 0.1, batch size of 64 and the RMSprop optimizer with a learning rate of 1e-6 by default. We linearly warmup the learning rate from 0 to 1e-6 over 150 steps. For TL;DR summarization, we use β = 0.5, while rest of the parameters remain the same.",
+        "value": "0.000001",
+        "section": "B DPO Implementation Details and Hyperparameters",
+        "section_evidence": {
+          "page": 19,
+          "excerpt": "B DPO Implementation Details and Hyperparameters"
+        },
+        "experiment_evidence": {
+          "page": 9,
+          "excerpt": "On single-turn dialogue, we evaluate the different methods on the subset of the test split of the Anthropic HH dataset [1] with one step of human-assistant interaction. GPT-4 evaluations use the preferred completions on the test as the reference to compute the win rate for different methods. As there is no standard SFT model for this task, we start with a pre-trained Pythia-2.8B, use Preferred-FT to train a reference model on the chosen completions such that completions are within distribution of the model, and then train using DPO. We also compare against the best of 128 Preferred-FT completions (we found the Best of N baseline plateaus at 128 completions for this task; see Appendix Figure 4) and a 2-shot prompted version of the Pythia-2.8B base model, finding DPO performs as well or better for the best-performing temperatures for each method. We also evaluate an RLHF model trained with PPO on the Anthropic HH dataset 5 from a well-known source 6, but are unable to find a prompt or sampling temperature that gives performance better than the base Pythia-2.8B model. Based on our results from TL;DR and the fact that both methods optimize the same reward function, we consider Best of 128 a rough proxy for PPO-level performance. Overall, DPO is the only computationally efficient method that improves over the preferred completions in the Anthropic HH dataset, and provides similar or better performance to the computationally demanding Best of 128 baseline. Finally, Figure 3 shows that DPO converges to its best performance relatively quickly."
+        },
+        "optimizer": "RMSprop",
+        "scope_link": "The method in the experiment paragraph is named in the section heading, and the section states a default unless noted otherwise."
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 75,
+        "line_end": 75,
+        "excerpt": "python -u train.py model=pythia28 datasets=[hh] loss=sft exp_name=anthropic_dpo_pythia28 gradient_accumulation_steps=2 batch_size=64 eval_batch_size=32 trainer=FSDPTrainer sample_during_eval=false model.fsdp_policy_mp=bfloat16",
+        "context": "We'll take advantage of FSDP's mixed precision in bfloat16 to speed up training; we usually see about a 50% speedup. By default, SFT will run for a single epoch over a mixture of the selected datasets. Datasets will be downloaded on the fly and cached locally.",
+        "entry_point": "train.py",
+        "arguments": {
+          "model": "pythia28",
+          "datasets": "[hh]",
+          "loss": "sft",
+          "exp_name": "anthropic_dpo_pythia28",
+          "gradient_accumulation_steps": "2",
+          "batch_size": "64",
+          "eval_batch_size": "32",
+          "trainer": "FSDPTrainer",
+          "sample_during_eval": "false",
+          "model.fsdp_policy_mp": "bfloat16"
+        },
+        "argument_style": "hydra"
+      },
+      {
+        "path": "README.md",
+        "line_start": 85,
+        "line_end": 85,
+        "excerpt": "python -u train.py model=pythia28 datasets=[hh] loss=dpo loss.beta=0.1 exp_name=anthropic_dpo_pythia28 gradient_accumulation_steps=2 batch_size=64 eval_batch_size=32 trainer=FSDPTrainer sample_during_eval=false model.fsdp_policy_mp=bfloat16 model.archive=/path/to/archive/from/sft/LATEST/policy.pt",
+        "context": "Check either wandb (if enabled, it is by default) or your output log to find the local run directory. To run DPO, you'll need the path to the final weights, which will look something like `/some/cache/dir/YOUR_USERNAME/pythia28_hh_sft_bf16_2023-06-21_16-58-17_973996/LATEST/policy.pt`. The `LATEST` directory contains the final set of weights from the end of training.",
+        "entry_point": "train.py",
+        "arguments": {
+          "model": "pythia28",
+          "datasets": "[hh]",
+          "loss": "dpo",
+          "loss.beta": "0.1",
+          "exp_name": "anthropic_dpo_pythia28",
+          "gradient_accumulation_steps": "2",
+          "batch_size": "64",
+          "eval_batch_size": "32",
+          "trainer": "FSDPTrainer",
+          "sample_during_eval": "false",
+          "model.fsdp_policy_mp": "bfloat16",
+          "model.archive": "/path/to/archive/from/sft/LATEST/policy.pt"
+        },
+        "argument_style": "hydra"
+      }
+    ],
+    "code": []
+  },
+  "issue_codes": [
+    "recipe_ambiguous"
+  ],
+  "explanation": "Multiple README commands match the explicit recipe selectors.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

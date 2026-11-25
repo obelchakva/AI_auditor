@@ -12,6 +12,7 @@ dependencies = [
     "pandas",
     "pyarrow",
     "PyMuPDF>=1.24.11,<2",
+    "PyYAML>=6",
 ]
 
 [project.scripts]

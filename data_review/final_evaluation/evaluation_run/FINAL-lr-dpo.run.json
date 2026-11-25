@@ -1,0 +1,23 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check initial-lr --pdf inputs/FINAL-lr-dpo/paper.pdf --repo inputs/FINAL-lr-dpo/repo.git --commit f8b8c0f49dc92a430bae41585f9d467d3618fe2f --stage dialogue",
+  "argv": [
+    "/mnt/data/AI_auditor/.venv/bin/python",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/FINAL-lr-dpo/paper.pdf",
+    "--repo",
+    "inputs/FINAL-lr-dpo/repo.git",
+    "--commit",
+    "f8b8c0f49dc92a430bae41585f9d467d3618fe2f",
+    "--stage",
+    "dialogue"
+  ],
+  "cwd": "/tmp/ai-auditor-final-run.vtkp9b1e",
+  "exit_code": 0,
+  "audit_wall_seconds": 0.22193,
+  "launch_error": false,
+  "valid_audit_json": true
+}

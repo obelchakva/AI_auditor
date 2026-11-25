@@ -1,0 +1,137 @@
+{
+  "status": "potential_discrepancy",
+  "stage": "Classification network",
+  "commit": "407e92e521dc2db90055470f7ff2ccb5aa474093",
+  "group": "pretrained weights",
+  "paper_value": "0.0001",
+  "code_value": "0.001",
+  "evidence": {
+    "paper": [
+      {
+        "page": 6,
+        "value": "0.0001",
+        "group_label": "pretrained layers",
+        "excerpt": "Learning rates are initially set to 1e-4 and 1e-3 for the pre-trained layers and the classifier, respectively",
+        "stage_context": {
+          "page": 5,
+          "excerpt": "Classification network.",
+          "section": "4.1. Implementation details",
+          "continuation": "map f . Initially, classifier weights are sam- pled randomly from a Gaussian distribution with zero mean and standard deviation of 1e-2. We train the classification network for 15 epochs with a batch size of 20 using the"
+        }
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 33,
+        "line_end": 33,
+        "excerpt": "python stage1.py --config-file configs/stage1.yml --gpu-id 0 # For training a classification network",
+        "entry_point": "stage1.py"
+      }
+    ],
+    "code": [
+      {
+        "group_label": "pretrained weights",
+        "group_index": 0,
+        "value": "0.001",
+        "use": {
+          "path": "stage1.py",
+          "line_start": 79,
+          "line_end": 79,
+          "excerpt": "{\"params\":params[0], \"lr\":lr,    \"weight_decay\":wd}"
+        },
+        "definitions": [
+          {
+            "path": "configs/stage1.yml",
+            "line_start": 18,
+            "line_end": 18,
+            "excerpt": "LR: 1e-3"
+          },
+          {
+            "path": "stage1.py",
+            "line_start": 76,
+            "line_end": 76,
+            "excerpt": "lr = cfg.SOLVER.LR"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "stage1.py",
+            "line_start": 127,
+            "line_end": 127,
+            "excerpt": "parser.add_argument(\"--config-file\")"
+          },
+          {
+            "path": "stage1.py",
+            "line_start": 133,
+            "line_end": 133,
+            "excerpt": "args = get_args()"
+          },
+          {
+            "path": "stage1.py",
+            "line_start": 136,
+            "line_end": 136,
+            "excerpt": "cfg.merge_from_file(args.config_file)"
+          },
+          {
+            "path": "stage1.py",
+            "line_start": 138,
+            "line_end": 138,
+            "excerpt": "main(cfg)"
+          },
+          {
+            "path": "stage1.py",
+            "line_start": 75,
+            "line_end": 75,
+            "excerpt": "params = model.get_params()"
+          },
+          {
+            "path": "stage1.py",
+            "line_start": 73,
+            "line_end": 73,
+            "excerpt": "model.backbone.load_state_dict(torch.load(f\"./weights/{cfg.MODEL.WEIGHTS}\"), strict=False)"
+          },
+          {
+            "path": "models/ClsNet.py",
+            "line_start": 36,
+            "line_end": 36,
+            "excerpt": "self.from_scratch_layers = [self.classifier]"
+          },
+          {
+            "path": "models/ClsNet.py",
+            "line_start": 163,
+            "line_end": 163,
+            "excerpt": "m in self.from_scratch_layers"
+          },
+          {
+            "path": "models/ClsNet.py",
+            "line_start": 168,
+            "line_end": 168,
+            "excerpt": "params[0].append(m.weight)"
+          },
+          {
+            "path": "models/ClsNet.py",
+            "line_start": 36,
+            "line_end": 36,
+            "excerpt": "self.from_scratch_layers = [self.classifier]"
+          },
+          {
+            "path": "models/ClsNet.py",
+            "line_start": 177,
+            "line_end": 177,
+            "excerpt": "m in self.from_scratch_layers"
+          },
+          {
+            "path": "models/ClsNet.py",
+            "line_start": 182,
+            "line_end": 182,
+            "excerpt": "params[0].append(m.weight)"
+          }
+        ]
+      }
+    ]
+  },
+  "explanation": "The paper and the documented recipe specify different initial learning rates. Expert confirmation required.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": true
+}

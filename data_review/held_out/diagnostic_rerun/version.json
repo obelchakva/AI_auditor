@@ -1,0 +1,10 @@
+{
+  "package_version": "0.1.0",
+  "git_head": "bae35a189b48c0b77559888f000a590a49eb1f19",
+  "source": "current working tree at the project root",
+  "archive_sha256": "41b9c698aa315509136bce1252b184830fdb0abcc798fa8a15c85e998434ab26",
+  "python": "3.12.3",
+  "pymupdf": "1.28.2",
+  "pyyaml": "6.0.4",
+  "git": "git version 2.43.0"
+}

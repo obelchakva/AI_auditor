@@ -1,0 +1,27 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check test-rotation --pdf inputs/FINAL-angle-diva/paper.pdf --repo inputs/FINAL-angle-diva/repo.git --commit 4c5282a8e54feee01626f5e8a54595ea570ac169 --stage 'Semi-supervised domain generalization' --dataset 'Rotated MNIST' --domain 75",
+  "argv": [
+    "/mnt/data/AI_auditor/.venv/bin/python",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "test-rotation",
+    "--pdf",
+    "inputs/FINAL-angle-diva/paper.pdf",
+    "--repo",
+    "inputs/FINAL-angle-diva/repo.git",
+    "--commit",
+    "4c5282a8e54feee01626f5e8a54595ea570ac169",
+    "--stage",
+    "Semi-supervised domain generalization",
+    "--dataset",
+    "Rotated MNIST",
+    "--domain",
+    "75"
+  ],
+  "cwd": "/tmp/ai-auditor-final-run.vtkp9b1e",
+  "exit_code": 0,
+  "audit_wall_seconds": 0.231481,
+  "launch_error": false,
+  "valid_audit_json": true
+}

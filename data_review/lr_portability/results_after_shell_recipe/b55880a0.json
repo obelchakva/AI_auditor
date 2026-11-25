@@ -1,0 +1,1128 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Standalone LBGM",
+  "commit": "381a63ea4317f5aeacb5f1d7e36a7377450e9eae",
+  "paper_value": null,
+  "code_value": "0.01",
+  "evidence": {
+    "paper": [],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 39,
+        "line_end": 39,
+        "excerpt": "sh sh/train_lbgm_<cnn|fcn|resnet|unet|vgg>.sh <dataset-name> <num-classes-per-node>",
+        "entry_point": "src/sh/train_lbgm_cnn.sh"
+      }
+    ],
+    "code": [
+      {
+        "value": "0.01",
+        "use": {
+          "path": "src/models/utils.py",
+          "line_start": 106,
+          "line_end": 108,
+          "excerpt": "optim.SGD(\n            params=model.parameters(), lr=args.lr,\n            momentum=args.momentum)"
+        },
+        "definitions": [
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "python train_federated.py --device-id 2 1 0 --dataset cifar --clf cnn --paradigm lbgm --error-tol 0.9 --optim sgd --num-workers 100 --batch-size 0 --test-batch-size 128 --epochs 501 --lr 1e-2 --momentum 0.9 --non-iid $n --residual 0 --repeat 1 --dry-run 0 &"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 38,
+            "line_end": 38,
+            "excerpt": "# to run standalone lbgm"
+          },
+          {
+            "path": "README.md",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "cd src"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 25,
+            "line_end": 25,
+            "excerpt": "cifar(){"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "n=$2"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 97,
+            "line_end": 97,
+            "excerpt": "$1"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "args = Arguments(argparser())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "parser = argparse.ArgumentParser()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "parser.add_argument('--dataset', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "parser.add_argument('--clf', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 18,
+            "line_end": 19,
+            "excerpt": "parser.add_argument('--paradigm', type=str, nargs='+',\n                        required=False, default=[])"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "parser.add_argument('--optim', type=str, required=False, default='sgd')"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--lr', type=float, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 72,
+            "line_end": 72,
+            "excerpt": "parser.add_argument('--non-iid', type=int, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "parser.parse_args()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "args = vars(parser.parse_args())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 88,
+            "line_end": 88,
+            "excerpt": "args = Struct(**args)"
+          },
+          {
+            "path": "src/common/utils.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "self.__dict__.update(entries)"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.dataset = args.dataset"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.clf = args.clf"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "self.paradigm = args.paradigm"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "self.optim = args.optim"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "self.lr = args.lr"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 41,
+            "line_end": 41,
+            "excerpt": "self.non_iid = args.non_iid"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 116,
+            "line_end": 121,
+            "excerpt": "fl_train(\n            args, model, workers, worker_models, X_trains, y_trains,\n            device, loss_type,\n            worker_mbufs, model_mbuf, worker_sdirs, worker_residuals,\n            0 if not args.scheduler else epoch-1,\n        )"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 302,
+            "line_end": 309,
+            "excerpt": "federated_worker_process(\n                args, model, worker_models[w] if w in worker_models else None,\n                loss_fn_, worker_data[w],\n                worker_targets[w], worker_num_samples[w],\n                worker_mbufs[w] if w in worker_mbufs else [],\n                worker_sdirs[w] if w in worker_sdirs else [],\n                worker_residuals[w] if w in worker_residuals else [],\n                device, epoch, train=True)"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "get_optim(args, node_model)"
+          },
+          {
+            "path": "src/models/utils.py",
+            "line_start": 105,
+            "line_end": 105,
+            "excerpt": "args.optim == 'sgd'"
+          }
+        ],
+        "non_iid_count": 3,
+        "shell_branch": "cifar",
+        "architecture": "cnn"
+      },
+      {
+        "value": "0.01",
+        "use": {
+          "path": "src/models/utils.py",
+          "line_start": 106,
+          "line_end": 108,
+          "excerpt": "optim.SGD(\n            params=model.parameters(), lr=args.lr,\n            momentum=args.momentum)"
+        },
+        "definitions": [
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "python train_federated.py --device-id 2 0 1 --dataset cifar --clf cnn --paradigm lbgm --error-tol 0.8 --optim sgd --num-workers 100 --batch-size 0 --test-batch-size 128 --epochs 501 --lr 1e-2 --momentum 0.9 --non-iid $n --residual 0 --repeat 1 --dry-run 0 &"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 38,
+            "line_end": 38,
+            "excerpt": "# to run standalone lbgm"
+          },
+          {
+            "path": "README.md",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "cd src"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 25,
+            "line_end": 25,
+            "excerpt": "cifar(){"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "n=$2"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 97,
+            "line_end": 97,
+            "excerpt": "$1"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "args = Arguments(argparser())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "parser = argparse.ArgumentParser()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "parser.add_argument('--dataset', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "parser.add_argument('--clf', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 18,
+            "line_end": 19,
+            "excerpt": "parser.add_argument('--paradigm', type=str, nargs='+',\n                        required=False, default=[])"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "parser.add_argument('--optim', type=str, required=False, default='sgd')"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--lr', type=float, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 72,
+            "line_end": 72,
+            "excerpt": "parser.add_argument('--non-iid', type=int, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "parser.parse_args()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "args = vars(parser.parse_args())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 88,
+            "line_end": 88,
+            "excerpt": "args = Struct(**args)"
+          },
+          {
+            "path": "src/common/utils.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "self.__dict__.update(entries)"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.dataset = args.dataset"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.clf = args.clf"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "self.paradigm = args.paradigm"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "self.optim = args.optim"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "self.lr = args.lr"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 41,
+            "line_end": 41,
+            "excerpt": "self.non_iid = args.non_iid"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 116,
+            "line_end": 121,
+            "excerpt": "fl_train(\n            args, model, workers, worker_models, X_trains, y_trains,\n            device, loss_type,\n            worker_mbufs, model_mbuf, worker_sdirs, worker_residuals,\n            0 if not args.scheduler else epoch-1,\n        )"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 302,
+            "line_end": 309,
+            "excerpt": "federated_worker_process(\n                args, model, worker_models[w] if w in worker_models else None,\n                loss_fn_, worker_data[w],\n                worker_targets[w], worker_num_samples[w],\n                worker_mbufs[w] if w in worker_mbufs else [],\n                worker_sdirs[w] if w in worker_sdirs else [],\n                worker_residuals[w] if w in worker_residuals else [],\n                device, epoch, train=True)"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "get_optim(args, node_model)"
+          },
+          {
+            "path": "src/models/utils.py",
+            "line_start": 105,
+            "line_end": 105,
+            "excerpt": "args.optim == 'sgd'"
+          }
+        ],
+        "non_iid_count": 3,
+        "shell_branch": "cifar",
+        "architecture": "cnn"
+      },
+      {
+        "value": "0.01",
+        "use": {
+          "path": "src/models/utils.py",
+          "line_start": 106,
+          "line_end": 108,
+          "excerpt": "optim.SGD(\n            params=model.parameters(), lr=args.lr,\n            momentum=args.momentum)"
+        },
+        "definitions": [
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 28,
+            "line_end": 28,
+            "excerpt": "python train_federated.py --device-id 2 1 0 --dataset cifar --clf cnn --paradigm lbgm --error-tol 0.6 --optim sgd --num-workers 100 --batch-size 0 --test-batch-size 128 --epochs 501 --lr 1e-2 --momentum 0.9 --non-iid $n --residual 0 --repeat 1 --dry-run 0 &"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 38,
+            "line_end": 38,
+            "excerpt": "# to run standalone lbgm"
+          },
+          {
+            "path": "README.md",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "cd src"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 25,
+            "line_end": 25,
+            "excerpt": "cifar(){"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "n=$2"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 97,
+            "line_end": 97,
+            "excerpt": "$1"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "args = Arguments(argparser())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "parser = argparse.ArgumentParser()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "parser.add_argument('--dataset', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "parser.add_argument('--clf', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 18,
+            "line_end": 19,
+            "excerpt": "parser.add_argument('--paradigm', type=str, nargs='+',\n                        required=False, default=[])"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "parser.add_argument('--optim', type=str, required=False, default='sgd')"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--lr', type=float, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 72,
+            "line_end": 72,
+            "excerpt": "parser.add_argument('--non-iid', type=int, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "parser.parse_args()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "args = vars(parser.parse_args())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 88,
+            "line_end": 88,
+            "excerpt": "args = Struct(**args)"
+          },
+          {
+            "path": "src/common/utils.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "self.__dict__.update(entries)"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.dataset = args.dataset"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.clf = args.clf"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "self.paradigm = args.paradigm"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "self.optim = args.optim"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "self.lr = args.lr"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 41,
+            "line_end": 41,
+            "excerpt": "self.non_iid = args.non_iid"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 116,
+            "line_end": 121,
+            "excerpt": "fl_train(\n            args, model, workers, worker_models, X_trains, y_trains,\n            device, loss_type,\n            worker_mbufs, model_mbuf, worker_sdirs, worker_residuals,\n            0 if not args.scheduler else epoch-1,\n        )"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 302,
+            "line_end": 309,
+            "excerpt": "federated_worker_process(\n                args, model, worker_models[w] if w in worker_models else None,\n                loss_fn_, worker_data[w],\n                worker_targets[w], worker_num_samples[w],\n                worker_mbufs[w] if w in worker_mbufs else [],\n                worker_sdirs[w] if w in worker_sdirs else [],\n                worker_residuals[w] if w in worker_residuals else [],\n                device, epoch, train=True)"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "get_optim(args, node_model)"
+          },
+          {
+            "path": "src/models/utils.py",
+            "line_start": 105,
+            "line_end": 105,
+            "excerpt": "args.optim == 'sgd'"
+          }
+        ],
+        "non_iid_count": 3,
+        "shell_branch": "cifar",
+        "architecture": "cnn"
+      },
+      {
+        "value": "0.01",
+        "use": {
+          "path": "src/models/utils.py",
+          "line_start": 106,
+          "line_end": 108,
+          "excerpt": "optim.SGD(\n            params=model.parameters(), lr=args.lr,\n            momentum=args.momentum)"
+        },
+        "definitions": [
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 29,
+            "line_end": 29,
+            "excerpt": "python train_federated.py --device-id 2 1 0 --dataset cifar --clf cnn --paradigm lbgm --error-tol 0.4 --optim sgd --num-workers 100 --batch-size 0 --test-batch-size 128 --epochs 501 --lr 1e-2 --momentum 0.9 --non-iid $n --residual 0 --repeat 1 --dry-run 0 &"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 38,
+            "line_end": 38,
+            "excerpt": "# to run standalone lbgm"
+          },
+          {
+            "path": "README.md",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "cd src"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 25,
+            "line_end": 25,
+            "excerpt": "cifar(){"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "n=$2"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 97,
+            "line_end": 97,
+            "excerpt": "$1"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "args = Arguments(argparser())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "parser = argparse.ArgumentParser()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "parser.add_argument('--dataset', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "parser.add_argument('--clf', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 18,
+            "line_end": 19,
+            "excerpt": "parser.add_argument('--paradigm', type=str, nargs='+',\n                        required=False, default=[])"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "parser.add_argument('--optim', type=str, required=False, default='sgd')"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--lr', type=float, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 72,
+            "line_end": 72,
+            "excerpt": "parser.add_argument('--non-iid', type=int, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "parser.parse_args()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "args = vars(parser.parse_args())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 88,
+            "line_end": 88,
+            "excerpt": "args = Struct(**args)"
+          },
+          {
+            "path": "src/common/utils.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "self.__dict__.update(entries)"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.dataset = args.dataset"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.clf = args.clf"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "self.paradigm = args.paradigm"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "self.optim = args.optim"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "self.lr = args.lr"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 41,
+            "line_end": 41,
+            "excerpt": "self.non_iid = args.non_iid"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 116,
+            "line_end": 121,
+            "excerpt": "fl_train(\n            args, model, workers, worker_models, X_trains, y_trains,\n            device, loss_type,\n            worker_mbufs, model_mbuf, worker_sdirs, worker_residuals,\n            0 if not args.scheduler else epoch-1,\n        )"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 302,
+            "line_end": 309,
+            "excerpt": "federated_worker_process(\n                args, model, worker_models[w] if w in worker_models else None,\n                loss_fn_, worker_data[w],\n                worker_targets[w], worker_num_samples[w],\n                worker_mbufs[w] if w in worker_mbufs else [],\n                worker_sdirs[w] if w in worker_sdirs else [],\n                worker_residuals[w] if w in worker_residuals else [],\n                device, epoch, train=True)"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "get_optim(args, node_model)"
+          },
+          {
+            "path": "src/models/utils.py",
+            "line_start": 105,
+            "line_end": 105,
+            "excerpt": "args.optim == 'sgd'"
+          }
+        ],
+        "non_iid_count": 3,
+        "shell_branch": "cifar",
+        "architecture": "cnn"
+      },
+      {
+        "value": "0.01",
+        "use": {
+          "path": "src/models/utils.py",
+          "line_start": 106,
+          "line_end": 108,
+          "excerpt": "optim.SGD(\n            params=model.parameters(), lr=args.lr,\n            momentum=args.momentum)"
+        },
+        "definitions": [
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 30,
+            "line_end": 30,
+            "excerpt": "python train_federated.py --device-id 2 1 0 --dataset cifar --clf cnn --paradigm lbgm --error-tol 0.2 --optim sgd --num-workers 100 --batch-size 0 --test-batch-size 128 --epochs 501 --lr 1e-2 --momentum 0.9 --non-iid $n --residual 0 --repeat 1 --dry-run 0 &"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 38,
+            "line_end": 38,
+            "excerpt": "# to run standalone lbgm"
+          },
+          {
+            "path": "README.md",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "cd src"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 25,
+            "line_end": 25,
+            "excerpt": "cifar(){"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "n=$2"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 97,
+            "line_end": 97,
+            "excerpt": "$1"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "args = Arguments(argparser())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "parser = argparse.ArgumentParser()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "parser.add_argument('--dataset', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "parser.add_argument('--clf', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 18,
+            "line_end": 19,
+            "excerpt": "parser.add_argument('--paradigm', type=str, nargs='+',\n                        required=False, default=[])"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "parser.add_argument('--optim', type=str, required=False, default='sgd')"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--lr', type=float, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 72,
+            "line_end": 72,
+            "excerpt": "parser.add_argument('--non-iid', type=int, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "parser.parse_args()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "args = vars(parser.parse_args())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 88,
+            "line_end": 88,
+            "excerpt": "args = Struct(**args)"
+          },
+          {
+            "path": "src/common/utils.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "self.__dict__.update(entries)"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.dataset = args.dataset"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.clf = args.clf"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "self.paradigm = args.paradigm"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "self.optim = args.optim"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "self.lr = args.lr"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 41,
+            "line_end": 41,
+            "excerpt": "self.non_iid = args.non_iid"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 116,
+            "line_end": 121,
+            "excerpt": "fl_train(\n            args, model, workers, worker_models, X_trains, y_trains,\n            device, loss_type,\n            worker_mbufs, model_mbuf, worker_sdirs, worker_residuals,\n            0 if not args.scheduler else epoch-1,\n        )"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 302,
+            "line_end": 309,
+            "excerpt": "federated_worker_process(\n                args, model, worker_models[w] if w in worker_models else None,\n                loss_fn_, worker_data[w],\n                worker_targets[w], worker_num_samples[w],\n                worker_mbufs[w] if w in worker_mbufs else [],\n                worker_sdirs[w] if w in worker_sdirs else [],\n                worker_residuals[w] if w in worker_residuals else [],\n                device, epoch, train=True)"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "get_optim(args, node_model)"
+          },
+          {
+            "path": "src/models/utils.py",
+            "line_start": 105,
+            "line_end": 105,
+            "excerpt": "args.optim == 'sgd'"
+          }
+        ],
+        "non_iid_count": 3,
+        "shell_branch": "cifar",
+        "architecture": "cnn"
+      },
+      {
+        "value": "0.01",
+        "use": {
+          "path": "src/models/utils.py",
+          "line_start": 106,
+          "line_end": 108,
+          "excerpt": "optim.SGD(\n            params=model.parameters(), lr=args.lr,\n            momentum=args.momentum)"
+        },
+        "definitions": [
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 31,
+            "line_end": 31,
+            "excerpt": "python train_federated.py --device-id 2 1 0 --dataset cifar --clf cnn --paradigm lbgm --error-tol 0.1 --optim sgd --num-workers 100 --batch-size 0 --test-batch-size 128 --epochs 501 --lr 1e-2 --momentum 0.9 --non-iid $n --residual 0 --repeat 1 --dry-run 0 &"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 38,
+            "line_end": 38,
+            "excerpt": "# to run standalone lbgm"
+          },
+          {
+            "path": "README.md",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "cd src"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 25,
+            "line_end": 25,
+            "excerpt": "cifar(){"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "n=$2"
+          },
+          {
+            "path": "src/sh/train_lbgm_cnn.sh",
+            "line_start": 97,
+            "line_end": 97,
+            "excerpt": "$1"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 27,
+            "line_end": 27,
+            "excerpt": "args = Arguments(argparser())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "parser = argparse.ArgumentParser()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "parser.add_argument('--dataset', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "parser.add_argument('--clf', type=str, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 18,
+            "line_end": 19,
+            "excerpt": "parser.add_argument('--paradigm', type=str, nargs='+',\n                        required=False, default=[])"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "parser.add_argument('--optim', type=str, required=False, default='sgd')"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--lr', type=float, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 72,
+            "line_end": 72,
+            "excerpt": "parser.add_argument('--non-iid', type=int, required=False)"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "parser.parse_args()"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "args = vars(parser.parse_args())"
+          },
+          {
+            "path": "src/common/argparser.py",
+            "line_start": 88,
+            "line_end": 88,
+            "excerpt": "args = Struct(**args)"
+          },
+          {
+            "path": "src/common/utils.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "self.__dict__.update(entries)"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.dataset = args.dataset"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.clf = args.clf"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "self.paradigm = args.paradigm"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "self.optim = args.optim"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "self.lr = args.lr"
+          },
+          {
+            "path": "src/common/arguments.py",
+            "line_start": 41,
+            "line_end": 41,
+            "excerpt": "self.non_iid = args.non_iid"
+          },
+          {
+            "path": "src/train_federated.py",
+            "line_start": 116,
+            "line_end": 121,
+            "excerpt": "fl_train(\n            args, model, workers, worker_models, X_trains, y_trains,\n            device, loss_type,\n            worker_mbufs, model_mbuf, worker_sdirs, worker_residuals,\n            0 if not args.scheduler else epoch-1,\n        )"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 302,
+            "line_end": 309,
+            "excerpt": "federated_worker_process(\n                args, model, worker_models[w] if w in worker_models else None,\n                loss_fn_, worker_data[w],\n                worker_targets[w], worker_num_samples[w],\n                worker_mbufs[w] if w in worker_mbufs else [],\n                worker_sdirs[w] if w in worker_sdirs else [],\n                worker_residuals[w] if w in worker_residuals else [],\n                device, epoch, train=True)"
+          },
+          {
+            "path": "src/models/train.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "get_optim(args, node_model)"
+          },
+          {
+            "path": "src/models/utils.py",
+            "line_start": 105,
+            "line_end": 105,
+            "excerpt": "args.optim == 'sgd'"
+          }
+        ],
+        "non_iid_count": 3,
+        "shell_branch": "cifar",
+        "architecture": "cnn"
+      }
+    ]
+  },
+  "explanation": "The PDF text has no explicit initial learning rate tied to this stage, so a comparison is not possible.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

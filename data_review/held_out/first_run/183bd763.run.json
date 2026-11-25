@@ -1,0 +1,12 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check initial-lr --pdf /tmp/ai-auditor-heldout.2dqTHd/183bd763/paper.pdf --repo /tmp/ai-auditor-heldout.2dqTHd/183bd763/repo --commit 813e1a6a938e2698d348129f2bcc01de44450df9 --stage 'Sig2Lab ResNet1D training'",
+  "cwd": "/tmp/ai-auditor-heldout.2dqTHd/snapshot",
+  "pdf_sha256": "5aaea845c1cdc680938615c4baed234cc6e9e9eac82bc908b514ce5404ff5fa4",
+  "commit": "813e1a6a938e2698d348129f2bcc01de44450df9",
+  "exit_code": 0,
+  "elapsed_seconds": 0.2669174090001434,
+  "stderr": "",
+  "python": "3.12.3",
+  "pymupdf": "1.28.2",
+  "pyyaml": "6.0.4"
+}

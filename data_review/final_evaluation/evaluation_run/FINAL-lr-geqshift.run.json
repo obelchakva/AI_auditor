@@ -1,0 +1,23 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check initial-lr --pdf inputs/FINAL-lr-geqshift/paper.pdf --repo inputs/FINAL-lr-geqshift/repo.git --commit f96ff93ba0a2cc7509a5463e0897d9a4a556a798 --stage 'multiple conformations'",
+  "argv": [
+    "/mnt/data/AI_auditor/.venv/bin/python",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/FINAL-lr-geqshift/paper.pdf",
+    "--repo",
+    "inputs/FINAL-lr-geqshift/repo.git",
+    "--commit",
+    "f96ff93ba0a2cc7509a5463e0897d9a4a556a798",
+    "--stage",
+    "multiple conformations"
+  ],
+  "cwd": "/tmp/ai-auditor-final-run.vtkp9b1e",
+  "exit_code": 0,
+  "audit_wall_seconds": 0.290837,
+  "launch_error": false,
+  "valid_audit_json": true
+}

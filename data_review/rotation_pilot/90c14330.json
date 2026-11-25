@@ -1,0 +1,365 @@
+{
+  "status": "match",
+  "stage": "MatchDG",
+  "check": "test-rotation",
+  "commit": "3eee1730ae9efaae2bd763f9835ac540b9bde02a",
+  "dataset": "Rotated MNIST",
+  "domain": "90",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": "90",
+  "code_value": "90",
+  "evidence": {
+    "paper": [
+      {
+        "page": 8,
+        "excerpt": "Accuracy for Rotated MNIST & Fashion-MNIST datasets on target domains of 0◦and 90◦.",
+        "experiment_context": "Dataset Source ERM MASF CSD IRM RandMatch MatchDG PerfMatch (Oracle)",
+        "value": "90"
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.rst",
+        "line_start": 31,
+        "line_end": 31,
+        "excerpt": "python data/data_gen_mnist.py --dataset rot_mnist --model resnet18 --img_h 224 --img_w 224 --subset_size 2000",
+        "context": "Let's first load the rotatedMNIST dataset in a suitable format for the resnet18 architecture."
+      },
+      {
+        "path": "README.rst",
+        "line_start": 44,
+        "line_end": 44,
+        "excerpt": "python test.py --dataset rot_mnist --method_name matchdg_erm --penalty_ws 0.1 --match_case -1 --ctr_match_case 0.0 --ctr_match_flag 1 --ctr_match_interrupt 5 --ctr_model_name resnet18 --epochs 25 --test_metric acc",
+        "context": "The following commands would train and evalute the MatchDG method on the Rotated MNIST dataset."
+      }
+    ],
+    "code": [
+      {
+        "value": "90",
+        "use": {
+          "path": "data/data_gen_mnist.py",
+          "line_start": 90,
+          "line_end": 90,
+          "excerpt": "torch.save(mnist_img_rot_org, save_dir + '_org_data.pt')"
+        },
+        "artifact": "data/datasets/mnist/rot_mnist_resnet18/test/seed_9_domain_90_org_data.pt",
+        "definitions": [
+          {
+            "path": "README.rst",
+            "line_start": 31,
+            "line_end": 31,
+            "excerpt": "python data/data_gen_mnist.py --dataset rot_mnist --model resnet18 --img_h 224 --img_w 224 --subset_size 2000",
+            "context": "Let's first load the rotatedMNIST dataset in a suitable format for the resnet18 architecture."
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 106,
+            "line_end": 107,
+            "excerpt": "parser.add_argument('--model', type=str, default='resnet18', \n                    help='Base Models: resnet18; lenet')"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 117,
+            "line_end": 117,
+            "excerpt": "model= args.model"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 241,
+            "line_end": 241,
+            "excerpt": "model == 'resnet18'"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 175,
+            "line_end": 175,
+            "excerpt": "seed_list= [0, 1, 2, 9]"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 176,
+            "line_end": 176,
+            "excerpt": "domains= [0, 15, 30, 45, 60, 75, 90]"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 242,
+            "line_end": 242,
+            "excerpt": "seed in [0, 1, 2, 9] and domain in [0, 90]"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 243,
+            "line_end": 243,
+            "excerpt": "generate_rotated_domain_data(mnist_imgs, mnist_labels, data_case, dataset, indices, domain, save_dir, img_w, img_h, cmnist_permute)"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 78,
+            "line_end": 78,
+            "excerpt": "domain == '0'"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 81,
+            "line_end": 81,
+            "excerpt": "transforms.functional.rotate( curr_image, int(domain) )"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 83,
+            "line_end": 83,
+            "excerpt": "mnist_img_rot_org[i]= to_tensor(img_rotated)"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 131,
+            "line_end": 131,
+            "excerpt": "base_dir= 'data/datasets/mnist/'"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 104,
+            "line_end": 105,
+            "excerpt": "parser.add_argument('--dataset', type=str, default='rot_mnist', \n                    help='Datasets: rot_mnist; fashion_mnist; rot_mnist_spur')"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "dataset= args.dataset"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 137,
+            "line_end": 137,
+            "excerpt": "data_dir= base_dir + dataset + '_' + model + '/'"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 234,
+            "line_end": 234,
+            "excerpt": "data_case= 'test'"
+          },
+          {
+            "path": "data/data_gen_mnist.py",
+            "line_start": 238,
+            "line_end": 238,
+            "excerpt": "save_dir= data_dir + data_case + '/' + 'seed_' + str(seed) + '_domain_' + str(domain)"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.rst",
+            "line_start": 44,
+            "line_end": 44,
+            "excerpt": "python test.py --dataset rot_mnist --method_name matchdg_erm --penalty_ws 0.1 --match_case -1 --ctr_match_case 0.0 --ctr_match_flag 1 --ctr_match_interrupt 5 --ctr_model_name resnet18 --epochs 25 --test_metric acc",
+            "context": "The following commands would train and evalute the MatchDG method on the Rotated MNIST dataset."
+          },
+          {
+            "path": "test.py",
+            "line_start": 155,
+            "line_end": 156,
+            "excerpt": "parser.add_argument('--test_metric', type=str, default='acc', \n                    help='Evaluation Metrics: acc; match_score, t_sne, mia')"
+          },
+          {
+            "path": "test.py",
+            "line_start": 242,
+            "line_end": 242,
+            "excerpt": "args.test_metric in ['match_score', 'feat_eval', 'slab_feat_eval']"
+          },
+          {
+            "path": "test.py",
+            "line_start": 249,
+            "line_end": 249,
+            "excerpt": "args.test_metric in ['acc', 'per_domain_acc']"
+          },
+          {
+            "path": "test.py",
+            "line_start": 157,
+            "line_end": 158,
+            "excerpt": "parser.add_argument('--acc_data_case', type=str, default='test', \n                    help='Dataset Train/Val/Test for the accuracy evaluation metric')"
+          },
+          {
+            "path": "test.py",
+            "line_start": 250,
+            "line_end": 250,
+            "excerpt": "args.acc_data_case== 'train'"
+          },
+          {
+            "path": "test.py",
+            "line_start": 252,
+            "line_end": 252,
+            "excerpt": "args.acc_data_case== 'val'"
+          },
+          {
+            "path": "test.py",
+            "line_start": 254,
+            "line_end": 254,
+            "excerpt": "args.acc_data_case== 'test'"
+          },
+          {
+            "path": "test.py",
+            "line_start": 26,
+            "line_end": 26,
+            "excerpt": "from utils.helper import *"
+          },
+          {
+            "path": "test.py",
+            "line_start": 255,
+            "line_end": 255,
+            "excerpt": "get_dataloader( args, run, test_domains, 'test', 1, kwargs )"
+          },
+          {
+            "path": "test.py",
+            "line_start": 31,
+            "line_end": 32,
+            "excerpt": "parser.add_argument('--dataset_name', type=str, default='rot_mnist', \n                    help='Datasets: rot_mnist; fashion_mnist; pacs')"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 270,
+            "line_end": 270,
+            "excerpt": "args.dataset_name in ['slab', 'slab_spur']"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 279,
+            "line_end": 279,
+            "excerpt": "args.dataset_name in ['pacs', 'vlcs']"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 282,
+            "line_end": 282,
+            "excerpt": "args.dataset_name in ['chestxray']"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 285,
+            "line_end": 285,
+            "excerpt": "args.dataset_name in ['chestxray_spur']"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 288,
+            "line_end": 288,
+            "excerpt": "args.dataset_name in ['rot_mnist', 'fashion_mnist', 'rot_mnist_spur']"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 177,
+            "line_end": 177,
+            "excerpt": "from data.mnist_loader import MnistRotated"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 296,
+            "line_end": 296,
+            "excerpt": "MnistRotated(args, domains, mnist_subset, '/mnist/', data_case=data_case, match_func=match_func)"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 22,
+            "line_end": 22,
+            "excerpt": "self._get_data()"
+          },
+          {
+            "path": "data/data_loader.py",
+            "line_start": 17,
+            "line_end": 17,
+            "excerpt": "self.data_case = data_case"
+          },
+          {
+            "path": "test.py",
+            "line_start": 145,
+            "line_end": 146,
+            "excerpt": "parser.add_argument('--mnist_aug', type=int, default=0, \n                    help='MNIST Data Augmentation: 0 (MNIST, FMNIST Privacy Evaluation); 1 (FMNIST)')"
+          },
+          {
+            "path": "data/data_loader.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "self.args= args"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 37,
+            "line_end": 37,
+            "excerpt": "self.data_case =='train' and self.args.mnist_aug"
+          },
+          {
+            "path": "data/data_loader.py",
+            "line_start": 15,
+            "line_end": 15,
+            "excerpt": "self.root = 'data/datasets' + root"
+          },
+          {
+            "path": "test.py",
+            "line_start": 143,
+            "line_end": 144,
+            "excerpt": "parser.add_argument('--mnist_case', type=str, default='resnet18', \n                    help='MNIST Dataset Case: resnet18; lenet, domainbed')"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 31,
+            "line_end": 31,
+            "excerpt": "data_dir= self.root + self.args.dataset_name + '_' + self.args.mnist_case + '/'"
+          },
+          {
+            "path": "utils/helper.py",
+            "line_start": 291,
+            "line_end": 291,
+            "excerpt": "mnist_subset= 9"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 19,
+            "line_end": 19,
+            "excerpt": "self.mnist_subset = mnist_subset"
+          },
+          {
+            "path": "test.py",
+            "line_start": 39,
+            "line_end": 40,
+            "excerpt": "parser.add_argument('--test_domains', nargs='+', type=str, default=[\"0\", \"90\"], \n                    help='List of test domains')"
+          },
+          {
+            "path": "test.py",
+            "line_start": 193,
+            "line_end": 193,
+            "excerpt": "test_domains= args.test_domains"
+          },
+          {
+            "path": "data/data_loader.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "self.list_domains = list_domains"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 34,
+            "line_end": 34,
+            "excerpt": "load_dir= data_dir + self.data_case + '/' + 'seed_' + str(self.mnist_subset) + '_domain_' + str(domain)"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 40,
+            "line_end": 40,
+            "excerpt": "torch.load( load_dir +  '_org_data.pt')"
+          },
+          {
+            "path": "data/mnist_loader.py",
+            "line_start": 45,
+            "line_end": 45,
+            "excerpt": "list_img.append(mnist_imgs)"
+          }
+        ]
+      }
+    ]
+  },
+  "explanation": "The paper and the documented test recipe specify the same rotation angle.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

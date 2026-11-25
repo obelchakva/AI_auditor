@@ -1,0 +1,1 @@
++ .venv/bin/python -m ai_auditor --pdf /tmp/lr-transfer/gcn/paper.pdf --repo /tmp/lr-transfer/gcn/git --commit 4fc90c438e5a609b96df03daff170fbcf03fde94 --stage 'Experiment Settings'

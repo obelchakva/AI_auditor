@@ -1,0 +1,65 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Implementation details",
+  "commit": "b84f547c5db6a35318d4671d7d5c4de74c822403",
+  "paper_value": "0.05",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 14,
+        "excerpt": "For CIFAR-100, we initialize the learning rate as 0.05, and decay it by 0.1 every 30 epochs after the ﬁrst 150 epochs until the last 240 epoch. For MobileNetV2, ShufﬂeNetV1 and ShufﬂeNetV2, we use a learning rate of 0.01 as this learning rate is optimal for these models in a grid search, while 0.05 is optimal for other models.",
+        "value": "0.05",
+        "section": "6.4 Implementation details",
+        "model_pair_evidence": [
+          {
+            "page": 6,
+            "excerpt": "Teacher resnet32x4 / Student resnet8x4",
+            "table_caption": "Table 1: Test accuracy (%) of student networks on CIFAR100 of a number of distillation methods (ours is CRD); see Appendix for citations of other methods. ↑denotes outperformance over KD and ↓denotes underperformance. We note that CRD is the only method to always outperform KD (and also outperforms all other methods). We denote by * methods where we used our reimplementation based on the paper; for all other methods we used author-provided or author-veriﬁed code. Average over 5 runs."
+          }
+        ]
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 59,
+        "line_end": 59,
+        "excerpt": "python train_student.py --path_t ./save/models/resnet32x4_vanilla/ckpt_epoch_240.pth --distill crd --model_s resnet8x4 -a 0 -b 0.8 --trial 1",
+        "context": "Therefore, the command for running CRD is something like:",
+        "entry_point": "train_student.py",
+        "arguments": {
+          "--path_t": "./save/models/resnet32x4_vanilla/ckpt_epoch_240.pth",
+          "--distill": "crd",
+          "--model_s": "resnet8x4",
+          "-a": "0",
+          "-b": "0.8",
+          "--trial": "1"
+        }
+      },
+      {
+        "path": "README.md",
+        "line_start": 64,
+        "line_end": 64,
+        "excerpt": "python train_student.py --path_t ./save/models/resnet32x4_vanilla/ckpt_epoch_240.pth --distill crd --model_s resnet8x4 -a 1 -b 0.8 --trial 1",
+        "context": "3. Combining a distillation objective with KD is simply done by setting `-a` as a non-zero value, which results in the following example (combining CRD with KD)",
+        "entry_point": "train_student.py",
+        "arguments": {
+          "--path_t": "./save/models/resnet32x4_vanilla/ckpt_epoch_240.pth",
+          "--distill": "crd",
+          "--model_s": "resnet8x4",
+          "-a": "1",
+          "-b": "0.8",
+          "--trial": "1"
+        }
+      }
+    ],
+    "code": []
+  },
+  "issue_codes": [
+    "recipe_ambiguous"
+  ],
+  "explanation": "Multiple README commands match the explicit recipe selectors.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

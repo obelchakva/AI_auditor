@@ -1,0 +1,25 @@
+{
+  "status": "insufficient_materials",
+  "stage": "ERM, training-domain validation set",
+  "check": "test-rotation",
+  "commit": "b93c22a1cfc3b2428398272c1a116c8de1f4139e",
+  "dataset": "Rotated MNIST",
+  "domain": "45",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 2,
+        "excerpt": "Rotated MNIST 0◦ 15◦ 30◦ 45◦ 60◦ 75◦ Average Ilse et al."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The paper does not give a unique rotation for this experiment's test domain. Could not trace a documented evaluation to an image file for this test domain.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

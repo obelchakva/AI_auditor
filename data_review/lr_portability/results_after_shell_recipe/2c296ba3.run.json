@@ -1,0 +1,8 @@
+{
+  "command": ".venv/bin/python -m ai_auditor --pdf /tmp/gcn-lr-evidence/paper.pdf --repo /tmp/gcn-lr-evidence/git --commit 4fc90c438e5a609b96df03daff170fbcf03fde94 --stage 'ZH–EN'",
+  "cwd": "/mnt/data/AI_auditor",
+  "pdf_sha256": "89a88c497c757eb5cedc7645f0e0616ffb269094e0866825f62fe36c0dafb8ed",
+  "commit": "4fc90c438e5a609b96df03daff170fbcf03fde94",
+  "exit_code": 0,
+  "stderr": ""
+}

@@ -1,0 +1,23 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Classification network",
+  "commit": "407e92e521dc2db90055470f7ff2ccb5aa474093",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 33,
+        "line_end": 33,
+        "excerpt": "python stage1.py --config-file configs/stage1.yml --gpu-id 0 # For training a classification network",
+        "entry_point": "stage1.py"
+      }
+    ],
+    "code": []
+  },
+  "explanation": "The PDF text has no explicit initial learning rate tied to this stage. The documented launch uses command-line overrides that this check cannot resolve.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

@@ -1,0 +1,224 @@
+{
+  "status": "insufficient_materials",
+  "stage": "ZH–EN",
+  "commit": "4fc90c438e5a609b96df03daff170fbcf03fde94",
+  "paper_value": null,
+  "code_value": "20",
+  "evidence": {
+    "paper": [],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 19,
+        "line_end": 19,
+        "excerpt": "python train.py --lang zh_en",
+        "entry_point": "train.py",
+        "arguments": {
+          "--lang": "zh_en"
+        },
+        "experiment_options": [
+          "--lang"
+        ]
+      }
+    ],
+    "code": [
+      {
+        "value": "20",
+        "use": {
+          "path": "models.py",
+          "line_start": 193,
+          "line_end": 193,
+          "excerpt": "tf.train.GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)"
+        },
+        "definitions": [
+          {
+            "path": "train.py",
+            "line_start": 20,
+            "line_end": 20,
+            "excerpt": "flags.DEFINE_float('learning_rate', 20, 'Initial learning rate.')"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "train.py",
+            "line_start": 19,
+            "line_end": 19,
+            "excerpt": "flags.DEFINE_string('lang', 'zh_en', 'Dataset string.')"
+          },
+          {
+            "path": "train.py",
+            "line_start": 31,
+            "line_end": 31,
+            "excerpt": "load_data(FLAGS.lang)"
+          },
+          {
+            "path": "train.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "from models import GCN_Align"
+          },
+          {
+            "path": "train.py",
+            "line_start": 36,
+            "line_end": 36,
+            "excerpt": "model_func = GCN_Align"
+          },
+          {
+            "path": "train.py",
+            "line_start": 55,
+            "line_end": 55,
+            "excerpt": "model_func(ph_ae, input_dim=ae_input[2][1], output_dim=FLAGS.ae_dim, ILL=train, sparse_inputs=True, featureless=False, logging=True)"
+          },
+          {
+            "path": "models.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "from layers import *"
+          },
+          {
+            "path": "layers.py",
+            "line_start": 2,
+            "line_end": 2,
+            "excerpt": "import tensorflow as tf"
+          },
+          {
+            "path": "models.py",
+            "line_start": 2,
+            "line_end": 2,
+            "excerpt": "from metrics import *"
+          },
+          {
+            "path": "metrics.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "import tensorflow as tf"
+          },
+          {
+            "path": "models.py",
+            "line_start": 3,
+            "line_end": 3,
+            "excerpt": "from inits import *"
+          },
+          {
+            "path": "inits.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "import tensorflow as tf"
+          },
+          {
+            "path": "models.py",
+            "line_start": 5,
+            "line_end": 5,
+            "excerpt": "flags = tf.app.flags"
+          },
+          {
+            "path": "models.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "FLAGS = flags.FLAGS"
+          }
+        ]
+      },
+      {
+        "value": "20",
+        "use": {
+          "path": "models.py",
+          "line_start": 193,
+          "line_end": 193,
+          "excerpt": "tf.train.GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)"
+        },
+        "definitions": [
+          {
+            "path": "train.py",
+            "line_start": 20,
+            "line_end": 20,
+            "excerpt": "flags.DEFINE_float('learning_rate', 20, 'Initial learning rate.')"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "train.py",
+            "line_start": 19,
+            "line_end": 19,
+            "excerpt": "flags.DEFINE_string('lang', 'zh_en', 'Dataset string.')"
+          },
+          {
+            "path": "train.py",
+            "line_start": 31,
+            "line_end": 31,
+            "excerpt": "load_data(FLAGS.lang)"
+          },
+          {
+            "path": "train.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "from models import GCN_Align"
+          },
+          {
+            "path": "train.py",
+            "line_start": 36,
+            "line_end": 36,
+            "excerpt": "model_func = GCN_Align"
+          },
+          {
+            "path": "train.py",
+            "line_start": 56,
+            "line_end": 56,
+            "excerpt": "model_func(ph_se, input_dim=e, output_dim=FLAGS.se_dim, ILL=train, sparse_inputs=False, featureless=True, logging=True)"
+          },
+          {
+            "path": "models.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "from layers import *"
+          },
+          {
+            "path": "layers.py",
+            "line_start": 2,
+            "line_end": 2,
+            "excerpt": "import tensorflow as tf"
+          },
+          {
+            "path": "models.py",
+            "line_start": 2,
+            "line_end": 2,
+            "excerpt": "from metrics import *"
+          },
+          {
+            "path": "metrics.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "import tensorflow as tf"
+          },
+          {
+            "path": "models.py",
+            "line_start": 3,
+            "line_end": 3,
+            "excerpt": "from inits import *"
+          },
+          {
+            "path": "inits.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "import tensorflow as tf"
+          },
+          {
+            "path": "models.py",
+            "line_start": 5,
+            "line_end": 5,
+            "excerpt": "flags = tf.app.flags"
+          },
+          {
+            "path": "models.py",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "FLAGS = flags.FLAGS"
+          }
+        ]
+      }
+    ]
+  },
+  "explanation": "The PDF text has no explicit initial learning rate tied to this stage, so a comparison is not possible.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

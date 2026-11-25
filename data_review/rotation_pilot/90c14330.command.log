@@ -1,0 +1,1 @@
++ .venv/bin/python -m ai_auditor --check test-rotation --pdf /tmp/rotation-pilot/paper.pdf --repo /tmp/rotation-pilot/git --commit 3eee1730ae9efaae2bd763f9835ac540b9bde02a --stage MatchDG --dataset 'Rotated MNIST' --domain 90

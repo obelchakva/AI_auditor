@@ -1,0 +1,1 @@
++ .venv/bin/python -m ai_auditor --pdf /tmp/lr-transfer/bana/paper.pdf --repo /tmp/lr-transfer/bana/git --commit 407e92e521dc2db90055470f7ff2ccb5aa474093 --stage 'Classification network'

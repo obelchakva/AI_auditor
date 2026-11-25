@@ -1,0 +1,8 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check initial-lr --pdf /tmp/ai-auditor-heldout.2dqTHd/b55880a0/paper.pdf --repo /tmp/ai-auditor-heldout.2dqTHd/b55880a0/repo --commit 381a63ea4317f5aeacb5f1d7e36a7377450e9eae --stage 'Standalone LBGM' --shell-recipe cnn cifar 3",
+  "cwd": "/mnt/data/AI_auditor",
+  "pdf_sha256": "24c25eeebc9b2ef49f8c35d325e42bb5d15569988a2dbc2d7ad1b724e75ec71c",
+  "commit": "381a63ea4317f5aeacb5f1d7e36a7377450e9eae",
+  "exit_code": 0,
+  "stderr": ""
+}

@@ -1,0 +1,1 @@
++ .venv/bin/python -m ai_auditor --pdf /tmp/lr-transfer/xai/paper.pdf --repo /tmp/lr-transfer/xai/git --commit 3f6fd5e98ab2fe431d6c15abeb5896c3c7747c2b --stage 'MNIST autoencoder'

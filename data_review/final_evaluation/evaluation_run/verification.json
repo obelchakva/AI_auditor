@@ -1,0 +1,60 @@
+{
+  "snapshot_sha256": "10f62d34bd48bde6993ee2750f2341af2face50502d3ba08a2f56cbdff17b748",
+  "snapshot_members_verified": 8,
+  "runtime_lock_sha256": "5c6b1254a74e00d27df79f8c974220b3b0363e0676bc117a679286d72d1293e7",
+  "verified_versions": {
+    "ai-auditor": "0.1.0",
+    "anyio": "4.16.0",
+    "click": "8.5.1",
+    "datasets": "5.2.0",
+    "dill": "0.4.1",
+    "filelock": "4.3.0",
+    "fsspec": "2026.9.0",
+    "h11": "0.16.0",
+    "hf-xet": "1.8.0",
+    "httpcore2": "2.16.2",
+    "httpx2": "2.16.2",
+    "huggingface_hub": "2.4.0",
+    "idna": "3.20",
+    "multiprocess": "0.70.19",
+    "numpy": "2.5.5",
+    "packaging": "26.3",
+    "pandas": "3.1.1",
+    "pip": "24.0",
+    "pyarrow": "26.0.1",
+    "pymupdf": "1.28.2",
+    "python-dateutil": "4.0.0",
+    "PyYAML": "6.0.4",
+    "tqdm": "4.70.1",
+    "truststore": "0.10.5",
+    "typing_extensions": "4.16.0",
+    "tzdata": "2026.6",
+    "xxhash": "4.1.0"
+  },
+  "cases_sha256": "5df2f2cf1815c3f480c133d55308697a2c965226cddca4a193c50e16ca3897d6",
+  "manual_review_sha256": "b7013043a7cfcdc4be6e54d59d1955132f4e09133c29c29496333de6554cd9fb",
+  "python": "3.12.3",
+  "git": "git version 2.43.0",
+  "inputs": {
+    "FINAL-lr-geqshift": {
+      "pdf_sha256": "123ff3b03944ef32b6ad0840acb8b50311252026720d6b5e0d178b10ac79c14e",
+      "verified_commit": "f96ff93ba0a2cc7509a5463e0897d9a4a556a798"
+    },
+    "FINAL-lr-dpo": {
+      "pdf_sha256": "92cb3a2b71362acda98a789b03d88688fd33cf5fcf13f81d2b1de30ee7d3b67a",
+      "verified_commit": "f8b8c0f49dc92a430bae41585f9d467d3618fe2f"
+    },
+    "FINAL-lr-crd": {
+      "pdf_sha256": "c4372914c8b6c552cc77c9c27fcf892b53a7dacf70ab970dbbb0fad872ec41b7",
+      "verified_commit": "b84f547c5db6a35318d4671d7d5c4de74c822403"
+    },
+    "FINAL-lr-sam": {
+      "pdf_sha256": "77992e7a518edcaf5200a750299b98f99de051066f7c1dac357e6baf8ce068bb",
+      "verified_commit": "dca509fe793f601edb92606367a655c15ac00fdf"
+    },
+    "FINAL-angle-diva": {
+      "pdf_sha256": "0e3fd2c989b7b053adfc994b886c8a21d22bb01fa1e0856d5c5b11e5ad032cfc",
+      "verified_commit": "4c5282a8e54feee01626f5e8a54595ea570ac169"
+    }
+  }
+}

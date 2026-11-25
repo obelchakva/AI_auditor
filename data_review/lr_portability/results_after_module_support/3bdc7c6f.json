@@ -1,0 +1,166 @@
+{
+  "status": "match",
+  "stage": "MNIST autoencoder",
+  "commit": "3f6fd5e98ab2fe431d6c15abeb5896c3c7747c2b",
+  "paper_value": "0.001",
+  "code_value": "0.001",
+  "evidence": {
+    "paper": [
+      {
+        "value": "0.001",
+        "page": 19,
+        "excerpt": "MNIST autoencoder. … The autoencoder is trained for 100 epochs with patience 10 by using Pytorch’s Adam with hyperparameters: learning rate = .001, β1 = .9, β2 = .999, ϵ = 10−8, weight decay = 10−5."
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 89,
+        "line_end": 89,
+        "excerpt": "python -m mnist --name experiment_name",
+        "module": "mnist",
+        "module_candidates": [
+          "experiments/mnist.py"
+        ],
+        "entry_point": "experiments/mnist.py",
+        "selector": {
+          "flag": "name",
+          "options": [
+            {
+              "value": "consistency_features",
+              "line": 95,
+              "excerpt": "| consistency_features | Consistency check for label-free<br/> feature importance (paper Section 4.1) |"
+            },
+            {
+              "value": "consistency_examples",
+              "line": 96,
+              "excerpt": "| consistency_examples | Consistency check for label-free<br/> example importance (paper Section 4.1) |"
+            },
+            {
+              "value": "roar_test",
+              "line": 97,
+              "excerpt": "| roar_test            | ROAR test for label-free<br/> feature importance (paper Appendix C)          |"
+            },
+            {
+              "value": "pretext",
+              "line": 98,
+              "excerpt": "| pretext              | Pretext task sensitivity<br/> use case (paper Section 4.2)                   |"
+            },
+            {
+              "value": "disvae",
+              "line": 99,
+              "excerpt": "| disvae               | Challenging assumptions with <br/> disentangled VAEs (paper Section 4.3)     |"
+            }
+          ]
+        },
+        "heading": {
+          "line": 86,
+          "excerpt": "### MNIST experiments"
+        }
+      }
+    ],
+    "code": [
+      {
+        "value": "0.001",
+        "use": {
+          "path": "src/lfxai/models/images.py",
+          "line_start": 175,
+          "line_end": 175,
+          "excerpt": "torch.optim.Adam(self.parameters(), lr=self.lr, weight_decay=1e-05)"
+        },
+        "definitions": [
+          {
+            "path": "src/lfxai/models/images.py",
+            "line_start": 174,
+            "line_end": 174,
+            "excerpt": "self.lr = 1e-03"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "| consistency_features | Consistency check for label-free<br/> feature importance (paper Section 4.1) |"
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 714,
+            "line_end": 714,
+            "excerpt": "args.name == \"consistency_features\""
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 715,
+            "line_end": 717,
+            "excerpt": "consistency_feature_importance(\n            batch_size=args.batch_size, random_seed=args.random_seed\n        )"
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 86,
+            "line_end": 86,
+            "excerpt": "autoencoder = AutoEncoderMnist(encoder, decoder, dim_latent, pert)"
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 94,
+            "line_end": 94,
+            "excerpt": "autoencoder.fit(device, train_loader, test_loader, save_dir, n_epochs)"
+          }
+        ]
+      },
+      {
+        "value": "0.001",
+        "use": {
+          "path": "src/lfxai/models/images.py",
+          "line_start": 175,
+          "line_end": 175,
+          "excerpt": "torch.optim.Adam(self.parameters(), lr=self.lr, weight_decay=1e-05)"
+        },
+        "definitions": [
+          {
+            "path": "src/lfxai/models/images.py",
+            "line_start": 174,
+            "line_end": 174,
+            "excerpt": "self.lr = 1e-03"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "README.md",
+            "line_start": 96,
+            "line_end": 96,
+            "excerpt": "| consistency_examples | Consistency check for label-free<br/> example importance (paper Section 4.1) |"
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 718,
+            "line_end": 718,
+            "excerpt": "args.name == \"consistency_examples\""
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 719,
+            "line_end": 719,
+            "excerpt": "consistency_examples(batch_size=args.batch_size, random_seed=args.random_seed)"
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 183,
+            "line_end": 183,
+            "excerpt": "autoencoder = AutoEncoderMnist(encoder, decoder, dim_latent, pert)"
+          },
+          {
+            "path": "experiments/mnist.py",
+            "line_start": 193,
+            "line_end": 195,
+            "excerpt": "autoencoder.fit(\n        device, train_loader, test_loader, save_dir, n_epochs, checkpoint_interval=10\n    )"
+          }
+        ]
+      }
+    ]
+  },
+  "explanation": "The paper and the documented recipe specify the same initial learning rate.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

@@ -1,0 +1,12 @@
+study	identity_aliases	scicoqa_ids	reason
+EQFace	arXiv:2105.00634; deepcam-cn/FaceQuality	47339aed	pilot and initial LR development
+Pre-Train Your Loss	NeurIPS 2022 b1e7f61f40d68b2177857bfcb195a507; hsouri/BayesianTransferLearning	106ad0b9,34ddeb91	pilot and sibling record
+GNNInterpreter	OpenReview:rqq6Dh8t4d; arXiv:2209.07924; yolandalalala/GNNInterpreter	22fbb9d2	pilot
+Domain Generalization using Causal Matching	PMLR v139 mahajan21b; microsoft/robustdg	90c14330,03255952	pilot and rotation development, including sibling record and alternate publisher copies
+LKM-UNet	arXiv:2403.07332; wjh892521292/LKM-UNet	1dd22bb4	pilot
+CUDA-LTR	OpenReview:RgUPdudkWlN; arXiv:2302.05499; sumyeongahn/CUDA_LTR	fbdbe39a	pilot
+GCN-Align	ACL:D18-1032; 1049451037/GCN-Align	2c296ba3	portability
+BANA	CVPR 2021 Oh et al.; cvlab-yonsei/BANA	b019c5d8	portability and grouped LR development
+Label-Free XAI	PMLR v162 crabbe22a; arXiv:2203.01928; JonathanCrabbe/Label-Free-XAI; vanderschaarlab/Label-Free-XAI	3bdc7c6f	portability and module support development
+ELECTRA	OpenReview:r1xMH1BtvB; arXiv:2003.10555; google-research/electra	09062f79	paper and commit inspected during development screening
+MBPO	NeurIPS 2019 5faf461eff3099671ad63c6f3f094f7f; JannerM/mbpo	120335b4	paper and commit inspected during development screening

@@ -1,0 +1,37 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Semi-supervised domain generalization",
+  "check": "test-rotation",
+  "commit": "4c5282a8e54feee01626f5e8a54595ea570ac169",
+  "dataset": "Rotated MNIST",
+  "domain": "75",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 5,
+        "excerpt": "This set of images is denoted M0◦."
+      },
+      {
+        "page": 5,
+        "excerpt": "To create ﬁve additional domains the images in M0◦are rotated by 15, 30, 45, 60 and 75 degrees."
+      },
+      {
+        "page": 5,
+        "excerpt": "In order to evaluate their domain generalization abilities, models are trained on ﬁve domains and tested on the remaining 6th domain, e.g., train on M0◦, M15◦, M30◦, M45◦and M60◦, test on M75◦."
+      },
+      {
+        "page": 5,
+        "excerpt": "Here, we trained DIVA on 5000 images from ﬁve domains: M0◦, M15◦, M30◦, M45◦and M60◦."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The paper does not give a unique rotation for this experiment's test domain. Could not trace a documented evaluation to an image file for this test domain.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

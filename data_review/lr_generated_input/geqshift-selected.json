@@ -1,0 +1,242 @@
+{
+  "status": "potential_discrepancy",
+  "stage": "multiple conformations",
+  "commit": "f96ff93ba0a2cc7509a5463e0897d9a4a556a798",
+  "paper_value": "0.0003",
+  "code_value": "0.0001",
+  "evidence": {
+    "paper": [
+      {
+        "page": 11,
+        "excerpt": "The batch size of the models is set to 32 except for SG-IMP-IR, where the recommended batch size of 128 is used. The models are optimized using the Adam optimizer (Kingma and Ba, 2015) starting with a learning rate of 3e-4. We used a small validation set consisting of five percent of the training data for the models trained using only one conformation per molecule. The learning rate decreased during training using the PyTorch ReduceLROnPlateau, which reduces the error when the validation error stops decreasing. A patience of 20 epochs and a reducing factor of 0.1 was used. We did not use a scheduler for the instances when multiple conformations are used. Instead, we trained these models during three epochs, and the learning rate decreases by 0.1 for every new epoch.",
+        "value": "0.0003",
+        "optimizer": "Adam",
+        "section": "Implementation details",
+        "input_evidence": {
+          "page": 11,
+          "excerpt": "(Roslund et al, 2011; R¨onnols et al, 2013; Furevi et al, 2022). In detail, it encompasses hydrogen 1H and carbon 13C chemical shifts for 375 carbohydrates in an aqueous solution. Of these are 107 monosaccharides, 153 disaccharides, and 115 trisaccharides. By summing up the individual shifts, the dataset contains 5356 1H and 4713 13C chemical shifts. GlyLES (Joeres et al, 2023) was used to convert the carbohydrates from the IUPAC representation into SMILES representation. The RDKit (2022) open-source library was used to convert the molecule from the SMILES representation to a graph. RDKit was also used to generate molecular conformations. To obtain 100 conformations per molecule, we generated 200 conformations using the ETKDGv3 method (Wang et al, 2020). To get a spread in the conformation distribution, we enforced keeping only conformations at a certain distance from each other. By deriving the potential energy using the MMFF94 force field (Tosco et al, 2014), we discarded the 100 conformations with the highest energy."
+        },
+        "section_evidence": {
+          "page": 11,
+          "excerpt": "Implementation details"
+        },
+        "scope_link": "The implementation paragraph states the starting optimizer rate and describes the selected variant. The dataset paragraph names the selected input and data variation."
+      }
+    ],
+    "stage_links": [
+      {
+        "source": "user_selected_script",
+        "entry_point": "main.py",
+        "arguments": {
+          "--train_path": "datasets/train_data_13C.pickle"
+        },
+        "input_flag": "--train_path",
+        "producer": "data/create_data.py",
+        "transform": "add_conformations_to_train_dataset"
+      }
+    ],
+    "code": [
+      {
+        "value": "0.0001",
+        "use": {
+          "path": "main.py",
+          "line_start": 185,
+          "line_end": 185,
+          "excerpt": "torch.optim.Adam(model.parameters(), lr=1e-4)"
+        },
+        "definitions": [
+          {
+            "path": "main.py",
+            "line_start": 185,
+            "line_end": 185,
+            "excerpt": "1e-4"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "main.py",
+            "line_start": 200,
+            "line_end": 200,
+            "excerpt": "parser.add_argument('--train_path', type=str, help='Path to train dataset')"
+          },
+          {
+            "path": "main.py",
+            "line_start": 207,
+            "line_end": 207,
+            "excerpt": "args = parser.parse_args()"
+          },
+          {
+            "path": "main.py",
+            "line_start": 208,
+            "line_end": 208,
+            "excerpt": "main(args.epochs, args.batch_size, args.train_path, args.test_path_mo, args.test_path_di, args.test_path_tri)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 181,
+            "line_end": 181,
+            "excerpt": "train_carb, test_data_mo, test_data_di, test_data_tri, model = load_train_test_objs(train_path, test_path_mo, test_path_di, test_path_tri)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 149,
+            "line_end": 149,
+            "excerpt": "train_data_carb  = load_train_data(train_path)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 137,
+            "line_end": 138,
+            "excerpt": "with open(train_path, 'rb') as handle:\n        train_data_carb = pickle.load(handle)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 138,
+            "line_end": 138,
+            "excerpt": "train_data_carb = pickle.load(handle)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 143,
+            "line_end": 143,
+            "excerpt": "return train_data_carb_"
+          },
+          {
+            "path": "main.py",
+            "line_start": 160,
+            "line_end": 160,
+            "excerpt": "return train_data_carb, test_data_mo, test_data_di, test_data_tri, model"
+          },
+          {
+            "path": "main.py",
+            "line_start": 187,
+            "line_end": 187,
+            "excerpt": "trainer = Trainer(model,train_data_carb, optimizer)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 260,
+            "line_end": 260,
+            "excerpt": "main(args.data_path_mo, args.data_path_di, args.data_path_tri, args.fold)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 168,
+            "line_end": 168,
+            "excerpt": "mols_mono = []"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 176,
+            "line_end": 176,
+            "excerpt": "mols_mono_carbon_d = list(Carbons13C(\"roots/carbon/mono\", mols_mono))"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 179,
+            "line_end": 179,
+            "excerpt": "mols_di = []"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 187,
+            "line_end": 187,
+            "excerpt": "mols_di_carbon_d = list(Carbons13C(\"roots/carbon/di\", mols_di))"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 190,
+            "line_end": 190,
+            "excerpt": "mols_tri = []"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 198,
+            "line_end": 198,
+            "excerpt": "mols_tri_carbon_d = list(Carbons13C(\"roots/carbon/tri\",mols_tri ))"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 207,
+            "line_end": 207,
+            "excerpt": "train_data_carbon_mo, test_data_carbon_mo = train_test_split(mols_mono_carbon_d, fold)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 208,
+            "line_end": 208,
+            "excerpt": "train_data_carbon_di, test_data_carbon_di = train_test_split(mols_di_carbon_d, fold)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 209,
+            "line_end": 209,
+            "excerpt": "train_data_carbon_tri, test_data_carbon_tri = train_test_split(mols_tri_carbon_d, fold)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 216,
+            "line_end": 216,
+            "excerpt": "train_data_carbon = train_data_carbon_mo + train_data_carbon_di + train_data_carbon_tri"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 219,
+            "line_end": 219,
+            "excerpt": "train_data_carbon = add_conformations_to_train_dataset(train_data_carbon)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 97,
+            "line_end": 127,
+            "excerpt": "def add_conformations_to_train_dataset(dataset):\n    new_dataset = []\n    for d_ in dataset:\n        name = d_.name\n        name = name.replace(\"->\",\"\")\n        name = name.replace(\")\",\"\")\n        name = name.replace(\"(\",\"\")\n        conf_path = \"conformations//\" + name + \".pickle\"\n        #if not os.path.exists(file_path):\n        #    continue\n\n        with open(conf_path, 'rb') as handle:\n            distencies = pickle.load(handle)\n            for dis_ in distencies:\n                new_data = d_.clone()\n                new_data.pos = torch.tensor(dis_)\n                edge_index, edge_attr = get_cut_off_graph(new_data.edge_index, new_data.edge_attr, new_data.pos ,cut_off=6.)\n                new_data.edge_index = edge_index\n                new_data.edge_attr = edge_attr\n                new_dataset.append(new_data)\n    new_dataset_ = InMemoryDataset()\n    data, slices, _ = collate(\n                new_dataset[0].__class__,\n                data_list=new_dataset,\n                increment=False,\n                add_batch=False,\n            )\n    new_dataset_.data = data\n\n    new_dataset_.slices = slices\n    return new_dataset_"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 225,
+            "line_end": 226,
+            "excerpt": "with open(\"datasets/train_data_13C.pickle\", 'wb') as handle:\n        pickle.dump(train_data_carbon, handle)"
+          },
+          {
+            "path": "data/create_data.py",
+            "line_start": 226,
+            "line_end": 226,
+            "excerpt": "pickle.dump(train_data_carbon, handle)"
+          }
+        ],
+        "optimizer": "Adam",
+        "subsequent_lr_change": [
+          {
+            "path": "main.py",
+            "line_start": 187,
+            "line_end": 187,
+            "excerpt": "trainer = Trainer(model,train_data_carb, optimizer)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 23,
+            "line_end": 23,
+            "excerpt": "self.optimizer = optimizer"
+          },
+          {
+            "path": "main.py",
+            "line_start": 191,
+            "line_end": 191,
+            "excerpt": "trainer.train(epochs, criterion, 0.1)"
+          },
+          {
+            "path": "main.py",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "self.optimizer.param_groups[0]['lr'] = self.optimizer.param_groups[0]['lr']*lr_reduce"
+          }
+        ],
+        "input_path": "datasets/train_data_13C.pickle"
+      }
+    ]
+  },
+  "issue_codes": [],
+  "explanation": "The paper and the user-selected script recipe specify different initial learning rates. Expert confirmation required.",
+  "scope": "Comparison with a user-selected script and generated input at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": true
+}

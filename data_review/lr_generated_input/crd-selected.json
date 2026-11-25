@@ -1,0 +1,98 @@
+{
+  "status": "match",
+  "stage": "Implementation details",
+  "commit": "b84f547c5db6a35318d4671d7d5c4de74c822403",
+  "paper_value": "0.05",
+  "code_value": "0.05",
+  "evidence": {
+    "paper": [
+      {
+        "page": 14,
+        "excerpt": "For CIFAR-100, we initialize the learning rate as 0.05, and decay it by 0.1 every 30 epochs after the ﬁrst 150 epochs until the last 240 epoch. For MobileNetV2, ShufﬂeNetV1 and ShufﬂeNetV2, we use a learning rate of 0.01 as this learning rate is optimal for these models in a grid search, while 0.05 is optimal for other models.",
+        "value": "0.05",
+        "section": "6.4 Implementation details",
+        "model_pair_evidence": [
+          {
+            "page": 6,
+            "excerpt": "Teacher resnet32x4 / Student resnet8x4",
+            "table_caption": "Table 1: Test accuracy (%) of student networks on CIFAR100 of a number of distillation methods (ours is CRD); see Appendix for citations of other methods. ↑denotes outperformance over KD and ↓denotes underperformance. We note that CRD is the only method to always outperform KD (and also outperforms all other methods). We denote by * methods where we used our reimplementation based on the paper; for all other methods we used author-provided or author-veriﬁed code. Average over 5 runs."
+          }
+        ]
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 59,
+        "line_end": 59,
+        "excerpt": "python train_student.py --path_t ./save/models/resnet32x4_vanilla/ckpt_epoch_240.pth --distill crd --model_s resnet8x4 -a 0 -b 0.8 --trial 1",
+        "context": "Therefore, the command for running CRD is something like:",
+        "entry_point": "train_student.py",
+        "arguments": {
+          "--path_t": "./save/models/resnet32x4_vanilla/ckpt_epoch_240.pth",
+          "--distill": "crd",
+          "--model_s": "resnet8x4",
+          "-a": "0",
+          "-b": "0.8",
+          "--trial": "1"
+        },
+        "argument_style": "argparse"
+      }
+    ],
+    "code": [
+      {
+        "value": "0.05",
+        "use": {
+          "path": "train_student.py",
+          "line_start": 273,
+          "line_end": 276,
+          "excerpt": "optim.SGD(trainable_list.parameters(),\n                          lr=opt.learning_rate,\n                          momentum=opt.momentum,\n                          weight_decay=opt.weight_decay)"
+        },
+        "definitions": [
+          {
+            "path": "train_student.py",
+            "line_start": 50,
+            "line_end": 50,
+            "excerpt": "parser.add_argument('--learning_rate', type=float, default=0.05, help='learning rate')"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "train_student.py",
+            "line_start": 90,
+            "line_end": 90,
+            "excerpt": "opt = parser.parse_args()"
+          },
+          {
+            "path": "train_student.py",
+            "line_start": 146,
+            "line_end": 146,
+            "excerpt": "opt = parse_option()"
+          },
+          {
+            "path": "train_student.py",
+            "line_start": 93,
+            "line_end": 94,
+            "excerpt": "if opt.model_s in ['MobileNetV2', 'ShuffleV1', 'ShuffleV2']:\n        opt.learning_rate = 0.01"
+          },
+          {
+            "path": "train_student.py",
+            "line_start": 194,
+            "line_end": 194,
+            "excerpt": "CRDLoss(opt)"
+          },
+          {
+            "path": "crd/criterion.py",
+            "line_start": 23,
+            "line_end": 29,
+            "excerpt": "def __init__(self, opt):\n        super(CRDLoss, self).__init__()\n        self.embed_s = Embed(opt.s_dim, opt.feat_dim)\n        self.embed_t = Embed(opt.t_dim, opt.feat_dim)\n        self.contrast = ContrastMemory(opt.feat_dim, opt.n_data, opt.nce_k, opt.nce_t, opt.nce_m)\n        self.criterion_t = ContrastLoss(opt.n_data)\n        self.criterion_s = ContrastLoss(opt.n_data)"
+          }
+        ]
+      }
+    ]
+  },
+  "issue_codes": [],
+  "explanation": "The paper and the documented recipe specify the same initial learning rate.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

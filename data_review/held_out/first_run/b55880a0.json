@@ -1,0 +1,15 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Standalone LBGM",
+  "commit": "381a63ea4317f5aeacb5f1d7e36a7377450e9eae",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The PDF text has no explicit initial learning rate tied to this stage. The repository README does not link the requested stage to a Python entry point.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

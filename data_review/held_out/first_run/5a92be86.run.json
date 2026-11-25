@@ -1,0 +1,12 @@
+{
+  "command": "/mnt/data/AI_auditor/.venv/bin/python -m ai_auditor --check initial-lr --pdf /tmp/ai-auditor-heldout.2dqTHd/5a92be86/paper.pdf --repo /tmp/ai-auditor-heldout.2dqTHd/5a92be86/repo --commit 3d9d42352c0a0a6fb170369e95dde4ec3cfea951 --stage 'Franka Kitchen'",
+  "cwd": "/tmp/ai-auditor-heldout.2dqTHd/snapshot",
+  "pdf_sha256": "893bb64ebda84a6a4bbfec846f9989d74a1f3b3e172bc0120c2ba19161f34c5d",
+  "commit": "3d9d42352c0a0a6fb170369e95dde4ec3cfea951",
+  "exit_code": 0,
+  "elapsed_seconds": 0.3572468940001272,
+  "stderr": "",
+  "python": "3.12.3",
+  "pymupdf": "1.28.2",
+  "pyyaml": "6.0.4"
+}

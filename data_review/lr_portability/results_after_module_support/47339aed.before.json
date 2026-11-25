@@ -1,0 +1,64 @@
+{
+  "status": "potential_discrepancy",
+  "stage": "Step 1",
+  "commit": "dfbf66d41707add18613247e5c43fd5d9564956c",
+  "paper_value": "0.1",
+  "code_value": "0.05",
+  "evidence": {
+    "paper": [
+      {
+        "value": "0.1",
+        "page": 5,
+        "excerpt": "In Step 1 of our training, the learning rate is initially set to 0.1, and decays by 10 at 30, 60, 90 epochs for a total 100 epochs."
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 30,
+        "line_end": 30,
+        "excerpt": "1. Step 1: set config.py, then run **python train_feature.py**",
+        "entry_point": "train_feature.py"
+      }
+    ],
+    "code": [
+      {
+        "value": "0.05",
+        "use": {
+          "path": "train_feature.py",
+          "line_start": 110,
+          "line_end": 110,
+          "excerpt": "config.BACKBONE_LR"
+        },
+        "definitions": [
+          {
+            "path": "config.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "BACKBONE_LR = 0.05"
+          }
+        ]
+      },
+      {
+        "value": "0.05",
+        "use": {
+          "path": "train_feature.py",
+          "line_start": 111,
+          "line_end": 111,
+          "excerpt": "config.BACKBONE_LR"
+        },
+        "definitions": [
+          {
+            "path": "config.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "BACKBONE_LR = 0.05"
+          }
+        ]
+      }
+    ]
+  },
+  "explanation": "The paper and the documented recipe specify different initial learning rates. Expert confirmation required.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": true
+}
