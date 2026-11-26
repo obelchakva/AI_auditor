@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/clip/paper.pdf",
+    "--repo",
+    "inputs/clip/repo.git",
+    "--commit",
+    "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+    "--stage",
+    "Training"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.1985560559987789,
+  "pdf_sha256": "2a4952960f350e50a3a4a847371b80b8aaa09ba82d1c2a8f6b30450e392a1fe4",
+  "verified_commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6"
+}

@@ -1,0 +1,471 @@
+{
+  "status": "insufficient_materials",
+  "stage": "RoBERTa large LoRA CoLA",
+  "commit": "c4593f060e6a368d7bb5af5273b8e42810cdef90",
+  "paper_value": "0.0002",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 19,
+        "table": 9,
+        "caption": "Table 9: The hyperparameters we used for RoBERTa on the GLUE benchmark.",
+        "excerpt": "Learning Rate 3E-04 4E-04 3E-04 2E-04 2E-04 3E-04 4E-04 2E-04",
+        "column_headers": [
+          "MNLI",
+          "SST-2",
+          "MRPC",
+          "CoLA",
+          "QNLI",
+          "QQP",
+          "RTE",
+          "STS-B"
+        ],
+        "header_bbox": [
+          113.88,
+          86.02,
+          498.12,
+          94.99
+        ],
+        "parameter": "Learning Rate",
+        "model_method": "RoBERTa large LoRA",
+        "group_bbox": [
+          113.88,
+          215.6,
+          169.99,
+          234.52
+        ],
+        "dataset": "CoLA",
+        "column_bbox": [
+          345.69,
+          86.02,
+          368.11,
+          94.99
+        ],
+        "row_bbox": [
+          182.2,
+          220.58,
+          496.87,
+          229.54
+        ],
+        "value": "0.0002",
+        "cell": "2E-04",
+        "cell_bbox": [
+          345.95,
+          220.58,
+          367.86,
+          229.54
+        ],
+        "group_settings": {
+          "Batch Size": {
+            "value": "4",
+            "row": "Batch Size 4 4 4 4 4 4 8 8",
+            "scope": "column"
+          },
+          "# Epochs": {
+            "value": "20",
+            "row": "# Epochs 10 10 20 20 10 20 20 30",
+            "scope": "column"
+          },
+          "LoRA Conﬁg.": {
+            "value": "rq = rv = 8",
+            "row": "LoRA Conﬁg. rq = rv = 8",
+            "scope": "row"
+          },
+          "LoRA α": {
+            "value": "16",
+            "row": "LoRA α 16",
+            "scope": "shared"
+          },
+          "Max Seq. Len.": {
+            "value": "128",
+            "row": "Max Seq. Len. 128 128 512 128 512 512 512 512",
+            "scope": "column"
+          }
+        }
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "README.md",
+        "line_start": 35,
+        "line_end": 35,
+        "excerpt": "Fine-tuning numbers are taken from [Liu et al. (2019)](https://arxiv.org/abs/1907.11692) and [He et al. (2020)](https://arxiv.org/abs/2006.03654).  We include confidence intervals on results from our experiments. Please follow the instructions in `examples/NLU/` to reproduce our results."
+      },
+      {
+        "path": "README.md",
+        "line_start": 68,
+        "line_end": 68,
+        "excerpt": "* [examples/NLU/](examples/NLU) contains an example implementation of LoRA in RoBERTa and DeBERTa using our package, which produces competitive results on the GLUE benchmark;"
+      },
+      {
+        "path": "examples/NLU/README.md",
+        "line_start": 65,
+        "line_end": 65,
+        "excerpt": "We also provide the shell scripts for roberta-base and roberta-large ( {roberta_large|roberta_base}_{task name}.sh )."
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 1,
+        "line_end": 1,
+        "excerpt": "export num_gpus=8"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 2,
+        "line_end": 2,
+        "excerpt": "export CUBLAS_WORKSPACE_CONFIG=\":16:8\" # https://docs.nvidia.com/cuda/cublas/index.html#cublasApi_reproducibility"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 3,
+        "line_end": 3,
+        "excerpt": "export PYTHONHASHSEED=0"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 4,
+        "line_end": 4,
+        "excerpt": "export output_dir=\"./cola\""
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 5,
+        "line_end": 5,
+        "excerpt": "python -m torch.distributed.launch --nproc_per_node=$num_gpus \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 6,
+        "line_end": 6,
+        "excerpt": "examples/text-classification/run_glue.py \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 7,
+        "line_end": 7,
+        "excerpt": "--model_name_or_path roberta-large \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 8,
+        "line_end": 8,
+        "excerpt": "--task_name cola \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 9,
+        "line_end": 9,
+        "excerpt": "--do_train \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 10,
+        "line_end": 10,
+        "excerpt": "--do_eval \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 11,
+        "line_end": 11,
+        "excerpt": "--max_seq_length 128 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 12,
+        "line_end": 12,
+        "excerpt": "--per_device_train_batch_size 4 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 13,
+        "line_end": 13,
+        "excerpt": "--learning_rate 3e-4 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 14,
+        "line_end": 14,
+        "excerpt": "--num_train_epochs 20 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 15,
+        "line_end": 15,
+        "excerpt": "--output_dir $output_dir/model \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 16,
+        "line_end": 16,
+        "excerpt": "--logging_steps 10 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 17,
+        "line_end": 17,
+        "excerpt": "--logging_dir $output_dir/log \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 18,
+        "line_end": 18,
+        "excerpt": "--evaluation_strategy epoch \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 19,
+        "line_end": 19,
+        "excerpt": "--save_strategy epoch \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 20,
+        "line_end": 20,
+        "excerpt": "--warmup_ratio 0.06 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 21,
+        "line_end": 21,
+        "excerpt": "--apply_lora \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 22,
+        "line_end": 22,
+        "excerpt": "--lora_r 8 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 23,
+        "line_end": 23,
+        "excerpt": "--lora_alpha 16 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 24,
+        "line_end": 24,
+        "excerpt": "--seed 0 \\"
+      },
+      {
+        "path": "examples/NLU/roberta_large_cola.sh",
+        "line_start": 25,
+        "line_end": 25,
+        "excerpt": "--weight_decay 0.1"
+      }
+    ],
+    "code": [
+      {
+        "use": {
+          "path": "examples/NLU/src/transformers/trainer.py",
+          "line_start": 656,
+          "line_end": 656,
+          "excerpt": "return optimizer_cls(optimizer_grouped_parameters, **optimizer_kwargs)"
+        },
+        "stage_trace": [
+          {
+            "path": "examples/NLU/examples/text-classification/run_glue.py",
+            "line_start": 227,
+            "line_end": 227,
+            "excerpt": "parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments))"
+          },
+          {
+            "path": "examples/NLU/examples/text-classification/run_glue.py",
+            "line_start": 233,
+            "line_end": 233,
+            "excerpt": "model_args, data_args, training_args = parser.parse_args_into_dataclasses()"
+          },
+          {
+            "path": "examples/NLU/examples/text-classification/run_glue.py",
+            "line_start": 345,
+            "line_end": 361,
+            "excerpt": "AutoConfig.from_pretrained(\n        model_args.config_name if model_args.config_name else model_args.model_name_or_path,\n        num_labels=num_labels,\n        finetuning_task=data_args.task_name,\n        cache_dir=model_args.cache_dir,\n        revision=model_args.model_revision,\n        use_auth_token=True if model_args.use_auth_token else None,\n        cls_dropout=training_args.cls_dropout,\n        apply_lora=model_args.apply_lora,\n        lora_alpha=model_args.lora_alpha,\n        lora_r=model_args.lora_r,\n        apply_adapter=model_args.apply_adapter,\n        adapter_type=model_args.adapter_type,\n        adapter_size=model_args.adapter_size,\n        reg_loss_wgt=model_args.reg_loss_wgt,\n        masking_prob=model_args.masking_prob,\n    )"
+          },
+          {
+            "path": "examples/NLU/examples/text-classification/run_glue.py",
+            "line_start": 537,
+            "line_end": 545,
+            "excerpt": "Trainer(\n        model=model,\n        args=training_args,\n        train_dataset=train_dataset if training_args.do_train else None,\n        eval_dataset=eval_dataset if training_args.do_eval else None,\n        compute_metrics=compute_metrics,\n        tokenizer=tokenizer,\n        data_collator=data_collator,\n    )"
+          },
+          {
+            "path": "examples/NLU/src/transformers/hf_argparser.py",
+            "line_start": 132,
+            "line_end": 132,
+            "excerpt": "kwargs[\"type\"] = field.type"
+          },
+          {
+            "path": "examples/NLU/src/transformers/hf_argparser.py",
+            "line_start": 180,
+            "line_end": 180,
+            "excerpt": "namespace, remaining_args = self.parse_known_args(args=args)"
+          },
+          {
+            "path": "examples/NLU/src/transformers/hf_argparser.py",
+            "line_start": 187,
+            "line_end": 187,
+            "excerpt": "obj = dtype(**inputs)"
+          },
+          {
+            "path": "examples/NLU/src/transformers/training_args.py",
+            "line_start": 351,
+            "line_end": 351,
+            "excerpt": "learning_rate: float = field(default=5e-5, metadata={\"help\": \"The initial learning rate for AdamW.\"})"
+          },
+          {
+            "path": "examples/NLU/src/transformers/trainer.py",
+            "line_start": 257,
+            "line_end": 257,
+            "excerpt": "self.args = args"
+          },
+          {
+            "path": "examples/NLU/src/transformers/trainer.py",
+            "line_start": 643,
+            "line_end": 643,
+            "excerpt": "optimizer_cls = AdamW"
+          },
+          {
+            "path": "examples/NLU/src/transformers/trainer.py",
+            "line_start": 648,
+            "line_end": 648,
+            "excerpt": "optimizer_kwargs[\"lr\"] = self.args.learning_rate"
+          },
+          {
+            "path": "examples/NLU/src/transformers/models/roberta/modeling_roberta.py",
+            "line_start": 166,
+            "line_end": 166,
+            "excerpt": "self.query = lora.Linear(config.hidden_size, self.all_head_size, config.lora_r, lora_alpha=config.lora_alpha)"
+          },
+          {
+            "path": "examples/NLU/src/transformers/models/roberta/modeling_roberta.py",
+            "line_start": 173,
+            "line_end": 173,
+            "excerpt": "self.value = lora.Linear(config.hidden_size, self.all_head_size, config.lora_r, lora_alpha=config.lora_alpha)"
+          }
+        ],
+        "warmup": {
+          "ratio": "0.06",
+          "proof": {
+            "path": "examples/NLU/src/transformers/trainer.py",
+            "line_start": 662,
+            "line_end": 662,
+            "excerpt": "math.ceil(num_training_steps * self.args.warmup_ratio)"
+          }
+        },
+        "batch": {
+          "per_device": 4,
+          "processes": 8,
+          "devices_per_process": 1,
+          "gradient_accumulation": 1,
+          "effective": 32,
+          "evidence": [
+            {
+              "path": "examples/NLU/src/transformers/training_args.py",
+              "line_start": 342,
+              "line_end": 345,
+              "excerpt": "gradient_accumulation_steps: int = field(\n        default=1,\n        metadata={\"help\": \"Number of updates steps to accumulate before performing a backward/update pass.\"},\n    )"
+            },
+            {
+              "path": "examples/NLU/src/transformers/training_args.py",
+              "line_start": 613,
+              "line_end": 613,
+              "excerpt": "per_device_batch_size = self.per_gpu_train_batch_size or self.per_device_train_batch_size"
+            },
+            {
+              "path": "examples/NLU/src/transformers/training_args.py",
+              "line_start": 682,
+              "line_end": 682,
+              "excerpt": "self._n_gpu = 1"
+            },
+            {
+              "path": "examples/NLU/src/transformers/training_args.py",
+              "line_start": 614,
+              "line_end": 614,
+              "excerpt": "train_batch_size = per_device_batch_size * max(1, self.n_gpu)"
+            },
+            {
+              "path": "examples/NLU/src/transformers/trainer.py",
+              "line_start": 950,
+              "line_end": 950,
+              "excerpt": "world_size = dist.get_world_size()"
+            },
+            {
+              "path": "examples/NLU/src/transformers/trainer.py",
+              "line_start": 954,
+              "line_end": 954,
+              "excerpt": "total_train_batch_size = self.args.train_batch_size * self.args.gradient_accumulation_steps * world_size"
+            }
+          ]
+        },
+        "value": "0.0003",
+        "rate_kind": "base_before_warmup",
+        "arguments": {
+          "model_name_or_path": "roberta-large",
+          "task_name": "cola",
+          "do_train": true,
+          "do_eval": true,
+          "max_seq_length": "128",
+          "per_device_train_batch_size": "4",
+          "learning_rate": "3e-4",
+          "num_train_epochs": "20",
+          "output_dir": "./cola/model",
+          "logging_steps": "10",
+          "logging_dir": "./cola/log",
+          "evaluation_strategy": "epoch",
+          "save_strategy": "epoch",
+          "warmup_ratio": "0.06",
+          "apply_lora": true,
+          "lora_r": "8",
+          "lora_alpha": "16",
+          "seed": "0",
+          "weight_decay": "0.1"
+        },
+        "definitions": [
+          {
+            "path": "examples/NLU/roberta_large_cola.sh",
+            "line_start": 13,
+            "line_end": 13,
+            "excerpt": "--learning_rate 3e-4 \\"
+          }
+        ],
+        "scope": "Published launch on one node with fresh output and no local .args file.",
+        "comparison": {
+          "table_label": "RoBERTa large LoRA",
+          "table_batch": "4",
+          "per_device_batch": 4,
+          "effective_batch": 32,
+          "table_batch_scope": "unspecified",
+          "variant_confirmed": false,
+          "settings": {
+            "num_train_epochs": {
+              "paper": "20",
+              "recipe": "20",
+              "agrees": true
+            },
+            "lora_alpha": {
+              "paper": "16",
+              "recipe": "16",
+              "agrees": true
+            },
+            "max_seq_length": {
+              "paper": "128",
+              "recipe": "128",
+              "agrees": true
+            },
+            "lora_r": {
+              "paper": "rq = rv = 8",
+              "recipe": "8",
+              "agrees": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  "issue_codes": [
+    "recipe_scope_unconfirmed"
+  ],
+  "explanation": "The published recipe's base LR is verified. The table does not establish whether its batch size means per-device or effective batch size, or whether the command belongs to the selected table variant.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

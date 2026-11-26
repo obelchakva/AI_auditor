@@ -1,0 +1,24 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Pubmed",
+  "commit": "5af87e7fce2b90ae1cbd621cd58059036a3c7436",
+  "paper_value": "0.01",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "value": "0.01",
+        "page": 7,
+        "excerpt": "Both models are initialized using Glorot initialization (Glorot & Bengio, 2010) and trained to mini- mize cross-entropy on the training nodes using the Adam SGD optimizer (Kingma & Ba, 2014) with an initial learning rate of 0.01 for Pubmed, and 0.005 for all other datasets."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "issue_codes": [
+    "recipe_not_found"
+  ],
+  "explanation": "The repository README does not link the requested stage to a Python entry point.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

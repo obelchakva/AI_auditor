@@ -1,0 +1,25 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Leave-one-domain-out",
+  "check": "test-rotation",
+  "commit": "2082d3d1c3703c153b85b0f6ec67632839887b59",
+  "dataset": "Rotated MNIST",
+  "domain": "75",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 6,
+        "excerpt": "Then, we create 5 rotating domains {M15, M30, M45, M60, M75} by rotating each image in M0 ﬁve times with 15 degrees intervals in clock-wise direction."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The paper does not give a unique rotation for this experiment's test domain. Could not trace a documented evaluation to an image file for this test domain.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

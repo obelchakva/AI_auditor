@@ -1,0 +1,35 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Training details",
+  "commit": "1e0dceb3b3495bbe19116a5e1b3596cd0706c543",
+  "paper_value": "0.0002",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 14,
+        "excerpt": "We tried Adam [31] and RMSProp early on in our experimentation process and chose the former. We left the hyperparameters to their standard values. We set the learning rate to 2 × 10−4 without any sweeping, and we lowered it to 2 × 10−5 for the 256 × 256 images, which seemed unstable to train with the larger learning rate.",
+        "experiment_evidence": {
+          "page": 14,
+          "excerpt": "Apart from an initial choice of hyperparameters early on to make network size ﬁt within memory constraints, we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets:",
+          "dataset": "CIFAR10"
+        },
+        "section_evidence": {
+          "page": 14,
+          "excerpt": "B Experimental details"
+        },
+        "value": "0.0002",
+        "scope_kind": "dataset_transfer",
+        "scope_link": "The appendix names the source dataset for the settings and separates the base rate from transfer exceptions."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "issue_codes": [
+    "recipe_not_found"
+  ],
+  "explanation": "No supported README launch connects the appendix experiment to a Python entry point. Commands documented inside scripts and their subcommand dispatch are not resolved.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

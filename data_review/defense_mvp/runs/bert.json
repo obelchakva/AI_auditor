@@ -1,0 +1,19 @@
+{
+  "status": "insufficient_materials",
+  "stage": "SQuAD v1.1",
+  "commit": "eedf5716ce1268e56f0a50264a88cafad334ac61",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [],
+    "stage_links": [],
+    "code": []
+  },
+  "issue_codes": [
+    "paper_lr_unconfirmed",
+    "recipe_not_found"
+  ],
+  "explanation": "The PDF text has no explicit initial learning rate tied to this stage, so a comparison is not possible. The repository README does not link the requested stage to a Python entry point.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

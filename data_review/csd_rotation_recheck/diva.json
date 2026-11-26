@@ -1,0 +1,221 @@
+{
+  "status": "match",
+  "stage": "Semi-supervised domain generalization",
+  "check": "test-rotation",
+  "commit": "4c5282a8e54feee01626f5e8a54595ea570ac169",
+  "dataset": "Rotated MNIST",
+  "domain": "75",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": "75",
+  "code_value": "75",
+  "evidence": {
+    "paper": [
+      {
+        "page": 5,
+        "excerpt": "The construction of the Rotated MNIST dataset follows Ghifary et al. (2015). We sample 100 images from each of the 10 classes from the original MNIST training dataset. This set of images is denoted M0◦. To create ﬁve additional domains the images in M0◦are rotated by 15, 30, 45, 60 and 75 degrees. In order to evaluate their domain generalization abilities, models are trained on ﬁve domains and tested on the remaining 6th domain, e.g., train on M0◦, M15◦, M30◦, M45◦and M60◦, test on M75◦. The evaluation metric is the classiﬁcation accuracy on the test domain. All experiments are repeated 10 times. Detailed information about hyperparameters, architecture and training schedule can be found in the Appendix.",
+        "value": "75",
+        "variant_evidence": {
+          "page": 6,
+          "excerpt": "Table 2: Comparison of DIVA trained supervised to DIVA trained semi-supervised with additional unlabeled data from M30◦and M60◦. We report the average and standard error of the classiﬁcation accuracy on M75◦.",
+          "table": 2,
+          "variant_excerpt": "In the following, we are looking at two diﬀerent experimental setups, in both cases M75◦ is the test domain: For the ﬁrst experiment we choose the domains M0◦, M15◦, M45◦and M60◦to be part of the labeled training set. In addition, unlabeled data from M30◦is used. We ﬁnd that even in the case where the additional domain is dissimilar to the test domain",
+          "row_excerpt": "Unsupervised domain DIVA supervised DIVA semi-supervised M30◦ 93.1 ± 0.5 93.3 ± 0.4 M60◦ 73.8 ± 0.8 80.6 ± 1.1",
+          "additional_unlabeled_domain": "30",
+          "test_domain": "75"
+        }
+      }
+    ],
+    "stage_links": [
+      {
+        "source": "user_selected_configuration_recipe",
+        "producer": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+        "evaluator": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+        "config_field": "list_test_domain",
+        "additional_unlabeled_domain": "30",
+        "configuration_pattern": "test_domain_75_sup_and_unsup_1_to_1_seed_<replicate>_add_30.config"
+      }
+    ],
+    "code": [
+      {
+        "value": "75",
+        "use": {
+          "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+          "line_start": 156,
+          "line_end": 156,
+          "excerpt": "transforms.functional.rotate(to_pil(mnist_imgs[i]), rot_angle)"
+        },
+        "definitions": [
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 150,
+            "line_end": 150,
+            "excerpt": "rot_angle = int(self.list_test_domain[0])"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 139,
+            "line_end": 140,
+            "excerpt": "parser.add_argument('--list_test_domain', type=str, default='75',\n                        help='domain used during testing')"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 310,
+            "line_end": 310,
+            "excerpt": "torch.save(args, model_name + '.config')"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 185,
+            "line_end": 185,
+            "excerpt": "args.list_test_domain = [args.list_test_domain]"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 125,
+            "line_end": 126,
+            "excerpt": "parser.add_argument('--seed', type=int, default=0,\n                        help='random seed (default: 1)')"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 214,
+            "line_end": 222,
+            "excerpt": "train_loader_unsup = data_utils.DataLoader(\n        MnistRotated4Domains(args.list_train_domains,\n                             ['30'],\n                             args.num_supervised,\n                             args.seed,\n                             './../../dataset/',\n                     train=False),\n        batch_size=args.batch_size,\n        shuffle=True)"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 225,
+            "line_end": 225,
+            "excerpt": "data_loaders['unsup'] = train_loader_unsup"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 260,
+            "line_end": 264,
+            "excerpt": "train(data_loaders,\n                                                                         model,\n                                                                         optimizer,\n                                                                         periodic_interval_batches,\n                                                                         epoch)"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/experiment.py",
+            "line_start": 187,
+            "line_end": 187,
+            "excerpt": "model_name = args.outpath + 'test_domain_' + str(args.list_test_domain[0]) + '_sup_and_unsup_1_to_1_seed_' + str(args.seed) + '_add_30'"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 62,
+            "line_end": 62,
+            "excerpt": "model_name = 'test_domain_75_sup_and_unsup_1_to_1_seed_' + str(i) + '_add_30'"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 63,
+            "line_end": 63,
+            "excerpt": "model = torch.load(model_name + '.model')"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 64,
+            "line_end": 64,
+            "excerpt": "args = torch.load(model_name + '.config')"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 71,
+            "line_end": 75,
+            "excerpt": "test_loader_sup = data_utils.DataLoader(\n            MnistRotated(args.list_train_domains, args.list_test_domain, args.num_supervised, args.seed, './../../../../dataset/',\n                         train=False),\n            batch_size=args.batch_size,\n            shuffle=True)"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 82,
+            "line_end": 82,
+            "excerpt": "get_accuracy(test_loader_sup, model.classifier, args.batch_size)"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 24,
+            "line_end": 24,
+            "excerpt": "data_loader"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 29,
+            "line_end": 29,
+            "excerpt": "classifier_fn(xs)"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/additional_unlabeled_domain/add_30/trained_models/sup_unsup_1_to_1/calculate_test.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "from paper_experiments.rotated_mnist.dataset.mnist_loader import MnistRotated"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 156,
+            "line_end": 156,
+            "excerpt": "mnist_imgs_rot[i] = to_tensor(transforms.functional.rotate(to_pil(mnist_imgs[i]), rot_angle))"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 21,
+            "line_end": 21,
+            "excerpt": "self.train"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 24,
+            "line_end": 24,
+            "excerpt": "self.test_data, self.test_labels, self.test_domain = self._get_data()"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 178,
+            "line_end": 178,
+            "excerpt": "self.train"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 187,
+            "line_end": 187,
+            "excerpt": "self.transform is not None"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 183,
+            "line_end": 183,
+            "excerpt": "x = self.test_data[index]"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 190,
+            "line_end": 190,
+            "excerpt": "return x, y, d"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 30,
+            "line_end": 30,
+            "excerpt": "self.train"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 130,
+            "line_end": 133,
+            "excerpt": "datasets.MNIST(self.root,\n                                                                      train=True,\n                                                                      download=self.download,\n                                                                      transform=transforms.ToTensor())"
+          },
+          {
+            "path": "paper_experiments/rotated_mnist/dataset/mnist_loader.py",
+            "line_start": 169,
+            "line_end": 169,
+            "excerpt": "return mnist_imgs_rot.unsqueeze(1), mnist_labels, test_domain"
+          }
+        ],
+        "storage": "in_memory"
+      }
+    ]
+  },
+  "explanation": "The paper and the user-selected in-memory test recipe specify the same rotation angle.",
+  "scope": "Static comparison of a user-selected configuration recipe at this commit.",
+  "expert_confirmation_required": false
+}

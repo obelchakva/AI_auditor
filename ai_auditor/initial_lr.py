@@ -488,7 +488,7 @@ def method_rates(path, source, method, trace):
 
 
 def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_selector=None, recipe_selector=None,
-          selected_script=None):
+          selected_script=None, table_lr=None, table_shell_recipe=None):
     snapshot = Snapshot(repo, commit)
     target = stage_pattern(stage)
     from .grouped_lr import GROUPS, grouped_code, grouped_paper, words, yaml_launch
@@ -498,7 +498,12 @@ def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_sele
     group = words(group) if group else None
     partial_paper = []
     cross_page = paper_selector and len(paper_selector) == 6 and paper_selector[5]
-    if selected_script:
+    table_issue = None
+    if table_lr:
+        from .paper_lr_table import table_rate
+
+        article, partial_paper, table_issue = table_rate(pdf, *table_lr, include_settings=bool(table_shell_recipe))
+    elif selected_script:
         from .script_lr import paper_input_rate
 
         article, partial_paper = paper_input_rate(pdf, *paper_selector[:2], selected_script[4])
@@ -511,10 +516,16 @@ def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_sele
         article, partial_paper = section_candidates(pdf, *paper_selector[:4])
     else:
         article = grouped_paper(pdf, stage, group) if group else paper_candidates(pdf, target)
+    if not (paper_selector or group or article or table_lr):
+        from .paper_scope import transferred_training_rate
+
+        article, partial_paper = transferred_training_rate(pdf, stage)
     if selected_script:
         script, input_flag, producer, transform, identity, options = selected_script
         references = [{"source": "user_selected_script", "entry_point": script, "arguments": dict(options),
                        "input_flag": input_flag, "producer": producer, "transform": transform}]
+    elif table_lr:
+        references = []
     elif recipe_selector:
         references = readme_recipes(snapshot, *recipe_selector)
     else:
@@ -526,7 +537,15 @@ def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_sele
     missing_modules = [ref["module"] for ref in references if ref.get("module_candidates") == []]
     grouped_launches = [] if selected_script else [ref for ref in references if yaml_launch(ref)]
     code_issue_kind = "code_lr_unresolved"
-    if selected_script:
+    if table_shell_recipe:
+        from .distributed_lr import table_shell_audit
+
+        code, references, code_issue = table_shell_audit(snapshot, table_shell_recipe, article)
+        code_issue_kind = "recipe_scope_unconfirmed" if code else "code_lr_unresolved"
+    elif table_lr:
+        code_issue_kind = "recipe_not_found"
+        code_issue = "No code recipe is verified for the selected table's model/method and dataset."
+    elif selected_script:
         from .script_lr import script_recipe_lr
 
         if script not in snapshot.files or producer not in snapshot.files:
@@ -619,6 +638,11 @@ def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_sele
     else:
         code_issue_kind = "recipe_not_found"
         code_issue = "The repository README does not link the requested stage to a Python entry point."
+        if article and any(item.get("scope_kind") == "dataset_transfer" for item in article):
+            from .fire_lr import transferred_fire_lr
+
+            code, references, kind, code_issue = transferred_fire_lr(snapshot, article)
+            code_issue_kind = kind or code_issue_kind
 
     if cross_page and article and code and code[0].get("model_name"):
         from .experiment_lr import subject_key
@@ -633,8 +657,11 @@ def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_sele
     issues = []
     issue_codes = []
     if len(paper_values) != 1 or group and len(article) != 1:
-        issue_codes.append("paper_lr_ambiguous" if paper_values else "paper_lr_unconfirmed")
-        if group:
+        issue_codes.append("paper_lr_ambiguous" if paper_values or table_issue and "ambiguous" in table_issue
+                           else "paper_lr_unconfirmed")
+        if table_lr:
+            issues.append(table_issue or "The selected table does not identify a unique LR cell.")
+        elif group:
             issues.append("The PDF does not uniquely identify the selected group's initial learning rate within the stage.")
         elif paper_values:
             issues.append("The paper has multiple initial learning rates for this stage.")
@@ -671,7 +698,7 @@ def audit(pdf, repo, commit, stage, group=None, shell_recipe=None, *, paper_sele
         explanation = "The paper and the documented recipe specify different initial learning rates. Expert confirmation required."
     if selected_script and status != "insufficient_materials":
         explanation = explanation.replace("documented recipe", "user-selected script recipe")
-    if cross_page and status != "insufficient_materials":
+    if (cross_page or any(item.get("rate_kind") == "base_before_warmup" for item in code)) and status != "insufficient_materials":
         explanation = explanation.replace("initial learning rate", "base optimizer learning rate")
     return {
         "status": status, "stage": stage, "commit": snapshot.commit,

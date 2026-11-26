@@ -1,0 +1,193 @@
+{
+  "status": "match",
+  "stage": "Training details",
+  "commit": "1e0dceb3b3495bbe19116a5e1b3596cd0706c543",
+  "paper_value": "0.0002",
+  "code_value": "0.0002",
+  "evidence": {
+    "paper": [
+      {
+        "page": 14,
+        "excerpt": "We tried Adam [31] and RMSProp early on in our experimentation process and chose the former. We left the hyperparameters to their standard values. We set the learning rate to 2 × 10−4 without any sweeping, and we lowered it to 2 × 10−5 for the 256 × 256 images, which seemed unstable to train with the larger learning rate.",
+        "experiment_evidence": {
+          "page": 14,
+          "excerpt": "Apart from an initial choice of hyperparameters early on to make network size ﬁt within memory constraints, we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets:",
+          "dataset": "CIFAR10"
+        },
+        "section_evidence": {
+          "page": 14,
+          "excerpt": "B Experimental details"
+        },
+        "value": "0.0002",
+        "scope_kind": "dataset_transfer",
+        "scope_link": "The appendix names the source dataset for the settings and separates the base rate from transfer exceptions."
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "scripts/run_cifar.py",
+        "line_start": 4,
+        "line_end": 4,
+        "excerpt": "python3 scripts/run_cifar.py train --bucket_name_prefix $BUCKET_PREFIX --exp_name $EXPERIMENT_NAME --tpu_name $TPU_NAME",
+        "entry_point": "scripts/run_cifar.py",
+        "subcommand": "train",
+        "arguments": {
+          "bucket_name_prefix": "$BUCKET_PREFIX",
+          "exp_name": "$EXPERIMENT_NAME",
+          "tpu_name": "$TPU_NAME"
+        },
+        "readme_pointer": {
+          "path": "README.md",
+          "line_start": 22,
+          "line_end": 23,
+          "excerpt": "The training and evaluation scripts are in the `scripts/` subdirectory.\nThe commands to run training and evaluation are in comments at the top of the scripts."
+        },
+        "dataset_context": {
+          "path": "scripts/run_cifar.py",
+          "line_start": 1,
+          "line_end": 4,
+          "excerpt": "\"\"\"\nUnconditional CIFAR10"
+        }
+      }
+    ],
+    "code": [
+      {
+        "value": "0.0002",
+        "definitions": [
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 134,
+            "line_end": 134,
+            "excerpt": "optimizer='adam', total_bs=128, grad_clip=1., lr=2e-4, warmup=5000,",
+            "parameter": "lr"
+          }
+        ],
+        "use": {
+          "path": "diffusion_tf/utils.py",
+          "line_start": 158,
+          "line_end": 159,
+          "excerpt": "tf.train.AdamOptimizer(\n      learning_rate=lr, epsilon=epsilon)"
+        },
+        "stage_trace": [
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 168,
+            "line_end": 168,
+            "excerpt": "fire.Fire()"
+          },
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 133,
+            "line_end": 133,
+            "excerpt": "'cifar10'"
+          },
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 134,
+            "line_end": 134,
+            "excerpt": "'adam'"
+          },
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 17,
+            "line_end": 17,
+            "excerpt": "from diffusion_tf.tpu_utils import tpu_utils, datasets, simple_eval_worker"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/datasets.py",
+            "line_start": 132,
+            "line_end": 132,
+            "excerpt": "functools.partial(SimpleDataset, name=\"cifar10\")"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/datasets.py",
+            "line_start": 154,
+            "line_end": 154,
+            "excerpt": "return DATASETS[name](**kwargs)"
+          },
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 144,
+            "line_end": 144,
+            "excerpt": "datasets.get_dataset(dataset, tfds_data_dir=tfds_data_dir)"
+          },
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 145,
+            "line_end": 164,
+            "excerpt": "tpu_utils.run_training(\n    date_str='9999-99-99',\n    exp_name='{exp_name}_{dataset}_{model_name}_{optimizer}_bs{total_bs}_lr{lr}w{warmup}_beta{beta_start}-{beta_end}-{beta_schedule}_t{num_diffusion_timesteps}_{model_mean_type}-{model_var_type}-{loss_type}_dropout{dropout}_randflip{randflip}'.format(\n      **kwargs),\n    model_constructor=lambda: Model(\n      model_name=model_name,\n      betas=get_beta_schedule(\n        beta_schedule, beta_start=beta_start, beta_end=beta_end, num_diffusion_timesteps=num_diffusion_timesteps\n      ),\n      model_mean_type=model_mean_type,\n      model_var_type=model_var_type,\n      loss_type=loss_type,\n      num_classes=ds.num_classes,\n      dropout=dropout,\n      randflip=randflip\n    ),\n    optimizer=optimizer, total_bs=total_bs, lr=lr, warmup=warmup, grad_clip=grad_clip,\n    train_input_fn=ds.train_input_fn,\n    tpu=tpu_name, log_dir=log_dir, dump_kwargs=kwargs, iterations_per_loop=2000, keep_checkpoint_max=keep_checkpoint_max\n  )"
+          },
+          {
+            "path": "scripts/run_cifar.py",
+            "line_start": 17,
+            "line_end": 17,
+            "excerpt": "from diffusion_tf.tpu_utils import tpu_utils, datasets, simple_eval_worker"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/tpu_utils.py",
+            "line_start": 184,
+            "line_end": 202,
+            "excerpt": "tf.estimator.tpu.TPUEstimator(\n    model_fn=model_fn,\n    use_tpu=True,\n    train_batch_size=total_bs,\n    eval_batch_size=total_bs,\n    config=tf.estimator.tpu.RunConfig(\n      cluster=tf.distribute.cluster_resolver.TPUClusterResolver(tpu=tpu, zone=zone, project=project),\n      model_dir=model_dir,\n      session_config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True),\n      tpu_config=tf.estimator.tpu.TPUConfig(\n        iterations_per_loop=iterations_per_loop,\n        num_shards=None,\n        per_host_input_for_training=tf.estimator.tpu.InputPipelineConfig.PER_HOST_V2\n      ),\n      save_checkpoints_secs=1600,  # 30 minutes\n      keep_checkpoint_max=keep_checkpoint_max\n    ),\n    warm_start_from=warm_start_from\n  )"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/tpu_utils.py",
+            "line_start": 203,
+            "line_end": 203,
+            "excerpt": "estimator.train(input_fn=train_input_fn, max_steps=max_steps)"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/tpu_utils.py",
+            "line_start": 156,
+            "line_end": 156,
+            "excerpt": "global_step = tf.train.get_or_create_global_step()"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/tpu_utils.py",
+            "line_start": 157,
+            "line_end": 157,
+            "excerpt": "warmed_up_lr = utils.get_warmed_up_lr(max_lr=lr, warmup=warmup, global_step=global_step)"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/tpu_utils.py",
+            "line_start": 158,
+            "line_end": 166,
+            "excerpt": "utils.make_optimizer(\n      loss=loss,\n      trainable_variables=trainable_variables,\n      global_step=global_step,\n      lr=warmed_up_lr,\n      optimizer=optimizer,\n      grad_clip=grad_clip / float(num_tpu_replicas()),\n      tpu=True\n    )"
+          },
+          {
+            "path": "diffusion_tf/tpu_utils/tpu_utils.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "from .. import utils"
+          },
+          {
+            "path": "diffusion_tf/utils.py",
+            "line_start": 157,
+            "line_end": 157,
+            "excerpt": "optimizer == 'adam'"
+          }
+        ],
+        "rate_kind": "base_before_warmup",
+        "warmup_steps": 5000,
+        "warmup_evidence": [
+          {
+            "path": "diffusion_tf/utils.py",
+            "line_start": 146,
+            "line_end": 147,
+            "excerpt": "if warmup == 0:\n    return max_lr"
+          },
+          {
+            "path": "diffusion_tf/utils.py",
+            "line_start": 148,
+            "line_end": 148,
+            "excerpt": "return max_lr * tf.minimum(tf.cast(global_step, tf.float32) / float(warmup), 1.0)"
+          }
+        ],
+        "base_lr_source": "function_default"
+      }
+    ]
+  },
+  "issue_codes": [],
+  "explanation": "The paper and the documented recipe specify the same base optimizer learning rate.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

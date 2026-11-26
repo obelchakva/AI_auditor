@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/mnt/data/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/resnet/paper.pdf",
+    "--repo",
+    "inputs/resnet/repo.git",
+    "--commit",
+    "985e569d468d23baeef5b952954dcdf3c61c5e73",
+    "--stage",
+    "Implementation"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.2305308729992248,
+  "pdf_sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a",
+  "verified_commit": "985e569d468d23baeef5b952954dcdf3c61c5e73"
+}

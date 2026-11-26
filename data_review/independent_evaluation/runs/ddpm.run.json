@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/mnt/data/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/ddpm/paper.pdf",
+    "--repo",
+    "inputs/ddpm/repo.git",
+    "--commit",
+    "1e0dceb3b3495bbe19116a5e1b3596cd0706c543",
+    "--stage",
+    "Training details"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.24252408299980743,
+  "pdf_sha256": "aee5e07a802e8dfd2a386374c94fd61d1d056cb7e1e0fec4f28e8120ff5d8505",
+  "verified_commit": "1e0dceb3b3495bbe19116a5e1b3596cd0706c543"
+}

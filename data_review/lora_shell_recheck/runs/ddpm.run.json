@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/ddpm/paper.pdf",
+    "--repo",
+    "inputs/ddpm/repo.git",
+    "--commit",
+    "1e0dceb3b3495bbe19116a5e1b3596cd0706c543",
+    "--stage",
+    "Training details"
+  ],
+  "exit_code": 0
+}

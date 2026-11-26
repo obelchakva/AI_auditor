@@ -28,6 +28,9 @@ def main():
     parser.add_argument("--paper-scope", help="Method named in both the experiment and default-LR section")
     parser.add_argument("--paper-model-pair", nargs=2, metavar=("TEACHER", "STUDENT"),
                         help="Verify a teacher/student pair in the paper's table")
+    parser.add_argument("--table-shell-recipe", help="Pinned distributed shell recipe to inspect alongside the LR table")
+    parser.add_argument("--paper-lr-table", nargs=3, metavar=("TABLE", "MODEL_METHOD", "DATASET"),
+                        help="Select an LR cell by table number, exact group label and dataset column")
     parser.add_argument("--paper-table", type=int, help="Number of the table containing the selected model pair")
     parser.add_argument("--recipe-arg", action="append", default=[], metavar="FLAG=VALUE",
                         help="Require a literal README command argument, e.g. --recipe-arg=--model=small")
@@ -60,7 +63,14 @@ def main():
     paper = (args.paper_section, args.paper_context, args.paper_model_pair, args.paper_table,
              args.paper_experiment, args.paper_scope)
     recipe = (args.recipe_arg, args.recipe_context)
-    if any((*paper, *recipe, *selected)) and (args.check != "initial-lr" or args.group or args.shell_recipe):
+    table_lr = args.paper_lr_table
+    if args.table_shell_recipe is not None and (not table_lr or not args.table_shell_recipe.strip()):
+        parser.error("--table-shell-recipe requires --paper-lr-table and a nonempty script path")
+    if table_lr and (not re.fullmatch(r"[1-9]\d{0,5}", table_lr[0])
+                     or any(not value.strip() for value in table_lr[1:])
+                     or any((*paper, *recipe, *selected))):
+        parser.error("--paper-lr-table requires a positive table number and nonempty labels without other selectors")
+    if any((*paper, *recipe, *selected, table_lr)) and (args.check != "initial-lr" or args.group or args.shell_recipe):
         parser.error("Explicit experiment selectors apply to initial-lr without --group or --shell-recipe")
     if any(paper) and not all(value and value.strip() for value in paper[:2]):
         parser.error("--paper-section and --paper-context are required together")
@@ -102,7 +112,9 @@ def main():
             result = audit(args.pdf, args.repo, args.commit, args.stage.strip(), args.group, args.shell_recipe,
                            paper_selector=paper if any(paper) else None,
                            recipe_selector=(criteria, args.recipe_context) if any(recipe) and not any(selected) else None,
-                           selected_script=(*selected, criteria) if any(selected) else None)
+                           selected_script=(*selected, criteria) if any(selected) else None,
+                           table_lr=(int(table_lr[0]), *table_lr[1:]) if table_lr else None,
+                           table_shell_recipe=args.table_shell_recipe)
     except (OSError, ValueError, RuntimeError) as error:
         parser.error(str(error))
     print(json.dumps(result, ensure_ascii=False, indent=2))

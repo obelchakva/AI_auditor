@@ -1,0 +1,20 @@
+{
+  "status": "insufficient_materials",
+  "stage": "DAA",
+  "check": "test-rotation",
+  "commit": "f8e7b0d5f48650500f643ac8bdc2ae982c6eb79e",
+  "dataset": "Rotated MNIST",
+  "domain": "90",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The paper does not give a unique rotation for this experiment's test domain. Could not trace a documented evaluation to an image file for this test domain.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

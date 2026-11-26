@@ -1,0 +1,25 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Rotation tasks",
+  "check": "test-rotation",
+  "commit": "9902cdc8ea54f2650cd1396f904a06598a864a76",
+  "dataset": "Rotated MNIST",
+  "domain": "90",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 6,
+        "excerpt": "We randomly select7 a subset of 2000 images for MNIST and 10,000 images for Fashion MNIST, the original set of images is considered to have rotated by 0◦and is denoted as M0."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The paper does not give a unique rotation for this experiment's test domain. Could not trace a documented evaluation to an image file for this test domain.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

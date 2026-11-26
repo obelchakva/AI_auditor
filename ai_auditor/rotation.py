@@ -567,6 +567,20 @@ def audit_rotation(pdf, repo, commit, experiment, dataset, domain, *, memory=Non
     else:
         paper, partial = paper_findings(pdf, dataset, experiment, domain)
         code, links, issue = code_findings(snapshot, dataset, experiment, domain)
+        if not paper:
+            from .paper_scope import evaluated_rotation_domains
+
+            paper, continuation = evaluated_rotation_domains(pdf, dataset, experiment, domain)
+            partial.extend(continuation)
+            if paper and issue and not links:
+                from .rotation_session import session_findings
+
+                memory_code, memory_links, memory_issue = session_findings(snapshot, pdf, dataset, experiment, domain)
+                if memory_links:
+                    code, links, issue = memory_code, memory_links, memory_issue
+                else:
+                    issue = ("No supported evaluation route connects this held-out domain to either a rotated image "
+                             "file or a selected configuration feeding an in-memory test loader.")
     paper_values = {item["value"] for item in paper}
     code_values = {item["value"] for item in code if "value" in item} if not issue else set()
     paper_value = next(iter(paper_values)) if len(paper_values) == 1 else None

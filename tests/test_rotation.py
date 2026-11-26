@@ -190,6 +190,118 @@ class Images:
         self.assertEqual((result["status"], result["code_value"]), ("insufficient_materials", None))
         self.assertIn("rotate", result["evidence"]["code"][0]["use"]["excerpt"])
 
+    def continued_domains(self, evaluation):
+        with pymupdf.open() as doc:
+            doc.new_page().insert_textbox(
+                pymupdf.Rect(55, 72, 510, 145),
+                "Rotated Tiles uses rotation to define each domain. Each of the images in the data",
+            )
+            doc.new_page().insert_textbox(
+                pymupdf.Rect(55, 72, 510, 185),
+                f"split when rotated by theta degrees is denoted Mtheta. {evaluation}",
+            )
+            doc.save(self.pdf)
+        (self.repo / "README.md").write_text("Rotation tasks\n", encoding="utf-8")
+        self.git("add", "README.md")
+        self.git("-c", "core.hooksPath=/dev/null", "commit", "-qm", "Freeze PDF fixture")
+        return subprocess.run([
+            sys.executable, "-m", "ai_auditor", "--check", "test-rotation", "--pdf", str(self.pdf),
+            "--repo", str(self.repo), "--commit", self.git("rev-parse", "HEAD"), "--stage", "Rotation tasks",
+            "--dataset", "Rotated Tiles", "--domain", "90",
+        ], check=True, capture_output=True, text=True)
+
+    def test_continued_domain_definition_links_held_out_evaluation(self):
+        result = json.loads(self.continued_domains("We evaluate on M0, M90. These are held-out domains.").stdout)
+        self.assertEqual((result["paper_value"], result["code_value"]), ("90", None))
+        paper, = result["evidence"]["paper"]
+        self.assertEqual((paper["experiment_evidence"]["page"], paper["page"]), (1, 2))
+
+    def test_continued_definition_does_not_use_training_or_other_domain_angle(self):
+        result = json.loads(self.continued_domains(
+            "We train on M90. We evaluate on M0, M60. These are held-out domains."
+        ).stdout)
+        self.assertEqual((result["status"], result["paper_value"]), ("insufficient_materials", None))
+        self.assertEqual({item["page"] for item in result["evidence"]["paper"]}, {1, 2})
+
+    def session_fixture(self, feed, angle="angle"):
+        self.continued_domains("We evaluate on M0, M90. These are held-out domains.")
+        (self.repo / "README.md").write_text(
+            "# Rotation tasks\n\nExample:\npython launch.py --dataset tiles\n", encoding="utf-8")
+        (self.repo / "launch.py").write_text("""import argparse
+from model import Model
+
+def parse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset', type=str)
+    parser.add_argument('--phase', default='train')
+    args = parser.parse_args()
+    return args
+
+def main():
+    args = parse()
+    with tf.Session() as sess:
+        model = Model(sess, args)
+        if args.phase == 'train':
+            model.test(full=True)
+
+if __name__ == "__main__":
+    main()
+""", encoding="utf-8")
+        (self.repo / "model.py").write_text(f"""from scipy.ndimage import rotate as rot
+
+def rotate_image(image, angle):
+    changed = rot(image, angle)
+    return changed
+
+class Model:
+    def __init__(self, sess, args):
+        self.sess = sess
+        self.dataset_name = args.dataset
+        if self.dataset_name == 'tiles':
+            self.train_x, self.train_y, self.test_x, self.test_y = load_tiles()
+        images = []
+        angles = [0, 90]
+        for angle in angles:
+            for image in self.test_x:
+                images.append(rotate_image(image, {angle}))
+        self.full_test_x = np.array(images)
+
+    def graph(self):
+        return self.network(self.inputs, is_training=False)
+
+    def test(self, full=False):
+        if full:
+            test_x = self.{feed}
+        else:
+            test_x = self.test_x
+        for index in range(len(test_x)):
+            batch = test_x[index:index + 1]
+            feed = {{self.inputs: batch}}
+            prediction = self.sess.run([self.test_accuracy], feed_dict=feed)
+""", encoding="utf-8")
+        self.git("add", "README.md", "launch.py", "model.py")
+        self.git("-c", "core.hooksPath=/dev/null", "commit", "-qm", "Freeze batch evaluation")
+        result = subprocess.run([
+            sys.executable, "-m", "ai_auditor", "--check", "test-rotation", "--pdf", str(self.pdf),
+            "--repo", str(self.repo), "--commit", self.git("rev-parse", "HEAD"), "--stage", "Rotation tasks",
+            "--dataset", "Rotated Tiles", "--domain", "90",
+        ], check=True, capture_output=True, text=True)
+        return json.loads(result.stdout)
+
+    def test_session_rotation_tracks_angle_used_by_scipy(self):
+        result = self.session_fixture("full_test_x", "angle + 15")
+        self.assertEqual((result["status"], result["paper_value"], result["code_value"]),
+                         ("potential_discrepancy", "90", "105"), result["explanation"])
+        self.assertIn("rot(image, angle)", result["evidence"]["code"][0]["use"]["excerpt"])
+
+    def test_session_rotation_refuses_raw_images_in_the_feed(self):
+        result = self.session_fixture("test_x")
+        self.assertEqual((result["status"], result["paper_value"], result["code_value"]),
+                         ("insufficient_materials", "90", None))
+        self.assertIn("full-test evaluation", result["explanation"])
+        self.assertTrue(any("feed_dict" in item["excerpt"] for item in
+                            result["evidence"]["stage_links"][0]["stage_trace"]))
+
     def test_test_rotation_matches_on_frozen_commit(self):
         commit = self.fixture()
         (self.repo / "generate.py").write_text("raise RuntimeError('do not execute research code')\n")

@@ -301,6 +301,207 @@ if __name__ == '__main__':
         self.assertIsNone(result["code_value"])
         self.assertIn("training setup", result["explanation"])
 
+    def transfer_appendix(self, rates):
+        with pymupdf.open() as doc:
+            page = doc.new_page()
+            page.insert_text((72, 72), "B Experimental details")
+            page.insert_textbox(
+                pymupdf.Rect(72, 98, 488, 155),
+                "We performed our hyperparameter search to optimize for Sample10 quality, "
+                "then transferred the resulting settings to other datasets:",
+            )
+            for index, rate in enumerate(rates):
+                page.insert_text((72, 170 + 24 * index), f"- We set the learning rate to {rate}")
+            doc.save(self.pdf)
+        return self.commit()
+
+    def test_transfer_appendix_retains_paper_rate_when_recipe_is_unresolved(self):
+        commit = self.transfer_appendix(["2e-4, and we lowered it to 2e-5 for large images."])
+        audit = self.run_audit(commit, stage="Training details")
+        self.assertEqual((audit["status"], audit["paper_value"], audit["code_value"]),
+                         ("insufficient_materials", "0.0002", None))
+        paper, = audit["evidence"]["paper"]
+        self.assertEqual(paper["experiment_evidence"]["dataset"], "Sample10")
+        self.assertIn("2e-4", paper["excerpt"])
+
+    def test_transfer_appendix_refuses_lr_qualified_for_another_dataset(self):
+        commit = self.transfer_appendix(["0.003 for Other20."])
+        audit = self.run_audit(commit, stage="Training details")
+        self.assertIsNone(audit["paper_value"])
+        self.assertIn("paper_lr_unconfirmed", audit["issue_codes"])
+        self.assertTrue(any("Other20" in item["excerpt"] for item in audit["evidence"]["paper"]))
+
+    def test_transfer_appendix_preserves_conflicting_rates(self):
+        commit = self.transfer_appendix(["0.0002.", "0.0003."])
+        audit = self.run_audit(commit, stage="Training details")
+        self.assertIsNone(audit["paper_value"])
+        self.assertIn("paper_lr_ambiguous", audit["issue_codes"])
+        self.assertEqual({item["value"] for item in audit["evidence"]["paper"]}, {"0.0002", "0.0003"})
+
+    def fire_training_fixture(self, override="", duplicate=False, default="1e-3"):
+        self.write("README.md", "The training and evaluation scripts are in the `jobs/` subdirectory.\n"
+                   "The commands to run training and evaluation are in comments at the top of the scripts.\n")
+        command = "python3 jobs/fit.py train --exp_name $NAME"
+        extra = command + " --lr=0.04\n" if duplicate else ""
+        self.write("jobs/fit.py", f'''"""Unconditional Sample10
+
+{command}{override}
+{extra}python3 jobs/fit.py evaluation --exp_name $NAME
+"""
+import fire
+from core import worker, datasets
+
+def train(exp_name, dataset='sample10', optimizer='adam', lr={default}, warmup=10):
+    ds = datasets.get_dataset(dataset)
+    worker.run_training(lr=lr, warmup=warmup, optimizer=optimizer, train_input_fn=ds.train_input_fn)
+
+def evaluation(exp_name):
+    pass
+
+if __name__ == '__main__':
+    fire.Fire()
+''')
+        self.write("core/datasets.py", """import functools
+DATASETS = {"sample10": functools.partial(SimpleDataset, name="sample10")}
+
+def get_dataset(name):
+    return DATASETS[name]()
+""")
+        self.write("core/worker.py", """from . import utility
+
+def run_training(*, lr, warmup, optimizer, train_input_fn):
+    def callback(features):
+        step = tf.train.get_or_create_global_step()
+        warmed = utility.get_warmed_up_lr(max_lr=lr, warmup=warmup, global_step=step)
+        optimizer_result = utility.make_optimizer(lr=warmed, optimizer=optimizer)
+        return optimizer_result
+    estimator = tf.estimator.tpu.TPUEstimator(model_fn=callback)
+    estimator.train(input_fn=train_input_fn)
+""")
+        self.write("core/utility.py", """def get_warmed_up_lr(max_lr, warmup, global_step):
+    if warmup == 0:
+        return max_lr
+    return max_lr * tf.minimum(tf.cast(global_step, tf.float32) / float(warmup), 1.0)
+
+def make_optimizer(*, optimizer, lr):
+    if optimizer == 'adam':
+        result = tf.train.AdamOptimizer(learning_rate=lr)
+    return result
+""")
+        return self.transfer_appendix(["2e-4."])
+
+    def test_fire_explicit_lr_overrides_default_before_warmup(self):
+        result = self.run_audit(self.fire_training_fixture(override=" --lr=2e-4"), stage="Training details")
+        self.assertEqual(result["status"], "match", result["explanation"])
+        self.assertEqual((result["paper_value"], result["code_value"]), ("0.0002", "0.0002"))
+        code, = result["evidence"]["code"]
+        self.assertEqual(code["base_lr_source"], "command_override")
+        self.assertIn("--lr=2e-4", code["definitions"][0]["excerpt"])
+        self.assertIn("tf.minimum", code["warmup_evidence"][1]["excerpt"])
+        self.assertIn("AdamOptimizer", code["use"]["excerpt"])
+        reference, = result["evidence"]["stage_links"]
+        self.assertEqual(reference["subcommand"], "train")
+
+    def test_fire_dynamic_lr_keeps_paper_evidence(self):
+        result = self.run_audit(self.fire_training_fixture(override=" --lr=$RATE"), stage="Training details")
+        self.assertEqual(result["status"], "insufficient_materials")
+        self.assertEqual((result["paper_value"], result["code_value"]), ("0.0002", None))
+        self.assertIn("code_lr_unresolved", result["issue_codes"])
+        self.assertIn("environment substitution", result["explanation"])
+
+    def test_fire_ambiguous_training_commands_are_preserved(self):
+        result = self.run_audit(self.fire_training_fixture(duplicate=True), stage="Training details")
+        self.assertEqual(result["status"], "insufficient_materials")
+        self.assertEqual((result["paper_value"], result["code_value"]), ("0.0002", None))
+        self.assertIn("recipe_ambiguous", result["issue_codes"])
+        self.assertEqual(len(result["evidence"]["stage_links"]), 2)
+
+    def ruled_hyperparameter_table(self, headers=("News", "Reviews"), duplicate_group=False, missing=False,
+                                   conflicting=False):
+        self.write("README.md", f"Table fixture {headers}, {duplicate_group}, {missing}, {conflicting}.\n")
+        with pymupdf.open() as doc:
+            page = doc.new_page()
+            for y in (70, 97, 150, 203, 256):
+                page.draw_line((62, y), (480, y))
+            for x, label in zip((70, 175, 312, 412), ("Method", "Dataset", *headers)):
+                page.insert_text((x, 88), label)
+            for y, model, method, a, b in (
+                (97, "Encoder small", "Adapter", "0.001", "0.002"),
+                (150, "Encoder large", "Adapter", "0.003", "" if missing else "0.004"),
+                (203, "Encoder large", "Adapter" if duplicate_group else "Full", "0.005", "0.006"),
+            ):
+                page.insert_text((70, y + 15), model)
+                page.insert_text((70, y + 29), method)
+                page.insert_text((175, y + 23), "Learning Rate")
+                if a:
+                    page.insert_text((312, y + 23), a)
+                if b:
+                    page.insert_text((412, y + 23), b)
+                if conflicting and y == 150:
+                    page.insert_text((175, y + 40), "Initial Learning Rate")
+                    page.insert_text((412, y + 40), "0.009")
+            page.insert_text((100, 276), "Table 3: Hyperparameters grouped by model and method.")
+            doc.save(self.pdf)
+        return self.commit()
+
+    def test_table_rate_selects_model_method_and_dataset(self):
+        result = self.run_audit(self.ruled_hyperparameter_table(), extra=(
+            "--paper-lr-table", "3", "Encoder-large Adapter", "Reviews"))
+        self.assertEqual((result["paper_value"], result["code_value"]), ("0.004", None), result["explanation"])
+        item, = result["evidence"]["paper"]
+        self.assertEqual((item["table"], item["dataset"], item["model_method"]), (3, "Reviews", "Encoder large Adapter"))
+        self.assertEqual(item["cell"], "0.004")
+
+    def test_table_rate_refuses_ambiguous_heading(self):
+        for options, message in [
+            ({"headers": ("Reviews", "Reviews")}, "column header is ambiguous"),
+            ({"duplicate_group": True}, "model/method header is ambiguous"),
+            ({"conflicting": True}, "conflicting LR rows"),
+        ]:
+            with self.subTest(options=options):
+                if self.pdf.exists():
+                    self.pdf.unlink()
+                result = self.run_audit(self.ruled_hyperparameter_table(**options), extra=(
+                    "--paper-lr-table", "3", "Encoder large Adapter", "Reviews"))
+                self.assertIsNone(result["paper_value"])
+                self.assertIn("paper_lr_ambiguous", result["issue_codes"])
+                self.assertIn(message, result["explanation"])
+
+    def test_table_rate_does_not_borrow_from_neighbor_cell(self):
+        result = self.run_audit(self.ruled_hyperparameter_table(missing=True), extra=(
+            "--paper-lr-table", "3", "Encoder large Adapter", "Reviews"))
+        self.assertIsNone(result["paper_value"])
+        self.assertTrue(any("0.003" in item["excerpt"] for item in result["evidence"]["paper"]))
+
+    def test_distributed_shell_reads_continuations_and_process_count(self):
+        from ai_auditor.distributed_lr import shell_launch
+        from ai_auditor.initial_lr import Snapshot
+
+        slash = chr(92)
+        self.write("suite/train.sh", "\n".join([
+            "export WORKERS=8",
+            "python -m torch.distributed.launch --nproc_per_node=$WORKERS " + slash,
+            "train.py --model_name_or_path encoder-large --task_name reviews " + slash,
+            "--do_train --apply_lora --lora_r 8 --lora_alpha 16 " + slash,
+            "--max_seq_length 128 --per_device_train_batch_size 4 --learning_rate 3e-4 " + slash,
+            "--num_train_epochs 20 --warmup_ratio 0.06",
+        ]))
+        entry, count, args, sites = shell_launch(Snapshot(self.repo, self.commit()), "suite/train.sh")
+        self.assertEqual((entry, count, args["learning_rate"]), ("suite/train.py", 8, "3e-4"))
+        self.assertTrue(any("--learning_rate" in item["excerpt"] for item in sites))
+
+    def test_distributed_recipe_batch_agreement_does_not_prove_variant(self):
+        from ai_auditor.distributed_lr import comparison_issue
+
+        paper = [{"model_method": "Encoder large LoRA", "dataset": "Reviews", "value": "0.0002",
+                  "group_settings": {"Batch Size": {"value": "4"}}}]
+        code = {"value": "0.0003", "arguments": {"model_name_or_path": "encoder-large", "task_name": "reviews"},
+                "batch": {"per_device": 4, "effective": 32}}
+        issue = comparison_issue(paper, code)
+        self.assertIn("per-device or effective", issue)
+        self.assertFalse(code["comparison"]["variant_confirmed"])
+        self.assertEqual((paper[0]["value"], code["value"]), ("0.0002", "0.0003"))
+
     def test_discrepancy_uses_imported_class_constant_and_parameter_groups(self):
         self.article("In Step 1, the learning rate was initially set to 0.1.")
         self.write("settings.py", "class Settings:\n    RATE = 0.05\n\nsettings = Settings()\n")

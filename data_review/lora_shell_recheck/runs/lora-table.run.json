@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/lora/paper.pdf",
+    "--repo",
+    "inputs/lora/repo.git",
+    "--commit",
+    "c4593f060e6a368d7bb5af5273b8e42810cdef90",
+    "--stage",
+    "RoBERTa large LoRA CoLA",
+    "--paper-lr-table",
+    "9",
+    "RoBERTa-large LoRA",
+    "CoLA"
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,3 @@
+Python 3.12.3
+git version 2.43.0
+630aba8133d7721d24fdba7533e52037909e81b5

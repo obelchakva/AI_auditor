@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/gpt2/paper.pdf",
+    "--repo",
+    "inputs/gpt2/repo.git",
+    "--commit",
+    "9b63575ef42771a015060c964af2c3da4cf7c8ab",
+    "--stage",
+    "Input Representation and Model Size"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.18546210199929192,
+  "pdf_sha256": "d9d852e2894556e73f53cb22b7c605a9643d6f0b19bf604b429ed6192fa24f4e",
+  "verified_commit": "9b63575ef42771a015060c964af2c3da4cf7c8ab"
+}

@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "test-rotation",
+    "--pdf",
+    "inputs/rot-alt/paper.pdf",
+    "--repo",
+    "inputs/rot-alt/repo.git",
+    "--commit",
+    "2082d3d1c3703c153b85b0f6ec67632839887b59",
+    "--stage",
+    "Leave-one-domain-out",
+    "--dataset",
+    "Rotated MNIST",
+    "--domain",
+    "75"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.20499880299939832,
+  "pdf_sha256": "f764b91fa5929d1dd312978c8964831ff8336b96a390fe5e61afbdeb19b79189",
+  "verified_commit": "2082d3d1c3703c153b85b0f6ec67632839887b59"
+}

@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/lora/paper.pdf",
+    "--repo",
+    "inputs/lora/repo.git",
+    "--commit",
+    "c4593f060e6a368d7bb5af5273b8e42810cdef90",
+    "--stage",
+    "RoBERTa large LoRA CoLA"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.2831716509990656,
+  "pdf_sha256": "e9a0d3128767db616085dc0f4e6e455e672e89af823e8ed1282793682787395a",
+  "verified_commit": "c4593f060e6a368d7bb5af5273b8e42810cdef90"
+}

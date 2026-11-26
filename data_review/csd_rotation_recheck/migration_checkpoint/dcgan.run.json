@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/dcgan/paper.pdf",
+    "--repo",
+    "inputs/dcgan/repo.git",
+    "--commit",
+    "6eaac638c3df1086530905d318ac2362efefe7b4",
+    "--stage",
+    "Train Bedrooms"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.14705161599886196,
+  "pdf_sha256": "01f7475f7cdad32c05aeaee6de61031702e7325097c82889d1c3537848642f11",
+  "verified_commit": "6eaac638c3df1086530905d318ac2362efefe7b4"
+}

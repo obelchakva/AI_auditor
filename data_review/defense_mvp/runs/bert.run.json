@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/bert/paper.pdf",
+    "--repo",
+    "inputs/bert/repo.git",
+    "--commit",
+    "eedf5716ce1268e56f0a50264a88cafad334ac61",
+    "--stage",
+    "SQuAD v1.1"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.16036057900055312,
+  "pdf_sha256": "5692a5514787a8c6727b4ff3b726a3385798bc68e12138d1d4af83947e2acf6e",
+  "verified_commit": "eedf5716ce1268e56f0a50264a88cafad334ac61"
+}

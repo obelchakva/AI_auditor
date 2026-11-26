@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/mnt/data/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/s5/paper.pdf",
+    "--repo",
+    "inputs/s5/repo.git",
+    "--commit",
+    "3c18fdb6b06414da35e77b94b9cd855f6a95ef17",
+    "--stage",
+    "LRA Image"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.2780301580005471,
+  "pdf_sha256": "e0a2d0ed83933892bc514d4c3ec2149aa5fa89ce45f52cbf08e86c36164057d6",
+  "verified_commit": "3c18fdb6b06414da35e77b94b9cd855f6a95ef17"
+}

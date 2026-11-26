@@ -1,0 +1,70 @@
+{
+  "status": "insufficient_materials",
+  "stage": "RoBERTa large LoRA CoLA",
+  "commit": "c4593f060e6a368d7bb5af5273b8e42810cdef90",
+  "paper_value": "0.0002",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 19,
+        "table": 9,
+        "caption": "Table 9: The hyperparameters we used for RoBERTa on the GLUE benchmark.",
+        "excerpt": "Learning Rate 3E-04 4E-04 3E-04 2E-04 2E-04 3E-04 4E-04 2E-04",
+        "column_headers": [
+          "MNLI",
+          "SST-2",
+          "MRPC",
+          "CoLA",
+          "QNLI",
+          "QQP",
+          "RTE",
+          "STS-B"
+        ],
+        "header_bbox": [
+          113.88,
+          86.02,
+          498.12,
+          94.99
+        ],
+        "parameter": "Learning Rate",
+        "model_method": "RoBERTa large LoRA",
+        "group_bbox": [
+          113.88,
+          215.6,
+          169.99,
+          234.52
+        ],
+        "dataset": "CoLA",
+        "column_bbox": [
+          345.69,
+          86.02,
+          368.11,
+          94.99
+        ],
+        "row_bbox": [
+          182.2,
+          220.58,
+          496.87,
+          229.54
+        ],
+        "value": "0.0002",
+        "cell": "2E-04",
+        "cell_bbox": [
+          345.95,
+          220.58,
+          367.86,
+          229.54
+        ]
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "issue_codes": [
+    "recipe_not_found"
+  ],
+  "explanation": "No code recipe is verified for the selected table's model/method and dataset.",
+  "scope": "Comparison with the published code recipe at this commit. The authors' historical run is unverified.",
+  "expert_confirmation_required": false
+}

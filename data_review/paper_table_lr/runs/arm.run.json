@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "test-rotation",
+    "--pdf",
+    "inputs/arm/paper.pdf",
+    "--repo",
+    "inputs/arm/repo.git",
+    "--commit",
+    "e4a0ce2d22fb0a8e98e9588420a04e707a418e9e",
+    "--stage",
+    "ARM-CML",
+    "--dataset",
+    "Rotated MNIST",
+    "--domain",
+    "130"
+  ],
+  "exit_code": 0
+}

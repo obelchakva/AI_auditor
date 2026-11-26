@@ -1,0 +1,192 @@
+{
+  "status": "match",
+  "stage": "Rotation tasks",
+  "check": "test-rotation",
+  "commit": "9902cdc8ea54f2650cd1396f904a06598a864a76",
+  "dataset": "Rotated MNIST",
+  "domain": "90",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": "90",
+  "code_value": "90",
+  "evidence": {
+    "paper": [
+      {
+        "page": 7,
+        "excerpt": "split when rotated by θ degrees is denoted Mθ. The training data is union of all images rotated by 15◦through 75◦in intervals of 15◦, creating a total of 5 domains. We evaluate on M0, M90. In that sense only in this artiﬁcially created domains, are we truly sure of the test domains being outside the span of train domains. Further, we employ batch augmentations such as ﬂip left-right and random crop since they signiﬁcantly improve generalization error and are commonly used in practice. We train using the ResNet-18 architecture.",
+        "value": "90",
+        "experiment_evidence": {
+          "page": 6,
+          "excerpt": "Rotated MNIST and Fashion-MNIST: Rotated MNIST is a popular benchmark for evaluating domain generalization where the angle by which images are rotated is the proxy for domain. We randomly select7 a subset of 2000 images for MNIST and 10,000 images for Fashion MNIST, the original set of images is considered to have rotated by 0◦and is denoted as M0. Each of the images in the data"
+        },
+        "scope_link": "The continued definition maps the domain label to degrees and explicitly lists it for held-out evaluation."
+      }
+    ],
+    "stage_links": [
+      {
+        "path": "readme.org",
+        "line_start": 26,
+        "line_end": 26,
+        "excerpt": "python main.py --dataset mnist --classifier mos",
+        "entry_point": "rotation/main.py",
+        "method": "CSD",
+        "arguments": {
+          "--dataset": "mnist",
+          "--classifier": "mos"
+        }
+      }
+    ],
+    "code": [
+      {
+        "value": "90",
+        "use": {
+          "path": "rotation/ResNet.py",
+          "line_start": 10,
+          "line_end": 10,
+          "excerpt": "rot(img, angle, reshape=reshape)"
+        },
+        "storage": "in_memory",
+        "definitions": [
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 101,
+            "line_end": 101,
+            "excerpt": "[0, 90]"
+          }
+        ],
+        "stage_trace": [
+          {
+            "path": "rotation/main.py",
+            "line_start": 1,
+            "line_end": 1,
+            "excerpt": "from ResNet import ResNet"
+          },
+          {
+            "path": "rotation/main.py",
+            "line_start": 116,
+            "line_end": 116,
+            "excerpt": "main()"
+          },
+          {
+            "path": "rotation/main.py",
+            "line_start": 67,
+            "line_end": 67,
+            "excerpt": "parse_args()"
+          },
+          {
+            "path": "rotation/main.py",
+            "line_start": 87,
+            "line_end": 87,
+            "excerpt": "cnn = ResNet(sess, args)"
+          },
+          {
+            "path": "rotation/main.py",
+            "line_start": 95,
+            "line_end": 95,
+            "excerpt": "args.phase == 'train'"
+          },
+          {
+            "path": "rotation/main.py",
+            "line_start": 102,
+            "line_end": 102,
+            "excerpt": "cnn.test(full=True)"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 390,
+            "line_end": 390,
+            "excerpt": "full"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 391,
+            "line_end": 391,
+            "excerpt": "test_x, test_y, test_u = self.full_test_x, self.full_test_y, self.full_test_u"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 398,
+            "line_end": 398,
+            "excerpt": "batch_test_x = test_x[_*self.batch_size: (_+1)*self.batch_size]"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 402,
+            "line_end": 406,
+            "excerpt": "test_feed_dict = {\n              self.test_inptus : batch_test_x,\n              self.test_labels : batch_test_y,\n              self.test_domains: batch_test_u\n          }"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 408,
+            "line_end": 409,
+            "excerpt": "self.sess.run(\n              [self.test_summary, self.test_loss, self.test_accuracy], feed_dict=test_feed_dict)"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 198,
+            "line_end": 198,
+            "excerpt": "self.test_inptus"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 54,
+            "line_end": 54,
+            "excerpt": "not ROTATE"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 32,
+            "line_end": 32,
+            "excerpt": "self.dataset_name == 'mnist'"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 33,
+            "line_end": 33,
+            "excerpt": "self.train_x, self.train_y, self.test_x, self.test_y = load_mnist()"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 101,
+            "line_end": 101,
+            "excerpt": "[0, 90]"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 104,
+            "line_end": 104,
+            "excerpt": "all_test_x.append(custom_rot(test_image, angle, reshape=False))"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 107,
+            "line_end": 107,
+            "excerpt": "self.full_test_x = np.array(all_test_x)"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 100,
+            "line_end": 100,
+            "excerpt": "all_test_x, all_test_y, all_test_u = [], [], []"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "_rot = rot(img, angle, reshape=reshape)"
+          },
+          {
+            "path": "rotation/ResNet.py",
+            "line_start": 12,
+            "line_end": 12,
+            "excerpt": "return (_rot - mn)/(mx - mn)"
+          }
+        ],
+        "scope": "Documented full-test evaluation."
+      }
+    ]
+  },
+  "explanation": "The paper and the documented test recipe specify the same rotation angle.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

@@ -1,0 +1,29 @@
+{
+  "status": "insufficient_materials",
+  "stage": "ARM-CML",
+  "check": "test-rotation",
+  "commit": "e4a0ce2d22fb0a8e98e9588420a04e707a418e9e",
+  "dataset": "Rotated MNIST",
+  "domain": "130",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": null,
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 8,
+        "excerpt": "We study a modiﬁed version of MNIST where images are rotated in 10 degree increments, from 0 to 130 degrees."
+      },
+      {
+        "page": 8,
+        "excerpt": "We use only 108 training data points for each of the 2 smallest domains (120 and 130 degrees), and 324 points each for rotations 90 to 110, whereas the overall training set contains 32292 points."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "The paper does not give a unique rotation for this experiment's test domain. Could not trace a documented evaluation to an image file for this test domain.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}

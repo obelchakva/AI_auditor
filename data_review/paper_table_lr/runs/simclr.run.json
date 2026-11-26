@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/simclr/paper.pdf",
+    "--repo",
+    "inputs/simclr/repo.git",
+    "--commit",
+    "383d4143fd8cf7879ae10f1046a9baeb753ff438",
+    "--stage",
+    "Default setting"
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/media/obelchakva/DataLinux/AI_auditor/.venv/bin/python",
+    "-E",
+    "-s",
+    "-m",
+    "ai_auditor",
+    "--check",
+    "initial-lr",
+    "--pdf",
+    "inputs/gcn/paper.pdf",
+    "--repo",
+    "inputs/gcn/repo.git",
+    "--commit",
+    "39a4089fe72ad9f055ed6fdb9746abdcfebc4d81",
+    "--stage",
+    "5.2 Experimental Set-Up"
+  ],
+  "exit_code": 0,
+  "launch_error": false,
+  "seconds": 0.20322612300151377,
+  "pdf_sha256": "a654f884db04a317b0f2414a83f2ba32a9f8442d29bcf1cb5f73f7af78a98070",
+  "verified_commit": "39a4089fe72ad9f055ed6fdb9746abdcfebc4d81"
+}

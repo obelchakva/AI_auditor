@@ -1,0 +1,31 @@
+{
+  "status": "insufficient_materials",
+  "stage": "Rotation tasks",
+  "check": "test-rotation",
+  "commit": "9902cdc8ea54f2650cd1396f904a06598a864a76",
+  "dataset": "Rotated MNIST",
+  "domain": "90",
+  "split": "test",
+  "unit": "degrees",
+  "paper_value": "90",
+  "code_value": null,
+  "evidence": {
+    "paper": [
+      {
+        "page": 7,
+        "excerpt": "split when rotated by θ degrees is denoted Mθ. The training data is union of all images rotated by 15◦through 75◦in intervals of 15◦, creating a total of 5 domains. We evaluate on M0, M90. In that sense only in this artiﬁcially created domains, are we truly sure of the test domains being outside the span of train domains. Further, we employ batch augmentations such as ﬂip left-right and random crop since they signiﬁcantly improve generalization error and are commonly used in practice. We train using the ResNet-18 architecture.",
+        "value": "90",
+        "experiment_evidence": {
+          "page": 6,
+          "excerpt": "Rotated MNIST and Fashion-MNIST: Rotated MNIST is a popular benchmark for evaluating domain generalization where the angle by which images are rotated is the proxy for domain. We randomly select7 a subset of 2000 images for MNIST and 10,000 images for Fashion MNIST, the original set of images is considered to have rotated by 0◦and is denoted as M0. Each of the images in the data"
+        },
+        "scope_link": "The continued definition maps the domain label to degrees and explicitly lists it for held-out evaluation."
+      }
+    ],
+    "stage_links": [],
+    "code": []
+  },
+  "explanation": "No supported evaluation route connects this held-out domain to either a rotated image file or a selected configuration feeding an in-memory test loader.",
+  "scope": "Static comparison of the documented test recipe at this commit.",
+  "expert_confirmation_required": false
+}
